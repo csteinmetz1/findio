@@ -5,6 +5,11 @@ body {
 	font-style: normal;
 }
 
+.container-fluid {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
 .title {
 	text-align: center;
 }
@@ -36,11 +41,19 @@ body {
 
 .form-control:focus {
 	color: #fff;
-	background-color: #282828
+	background-color: #282828;
+	outline: none;
+	box-shadow: none;
+	border: none;
 }
+
+*:focus {
+	outline: none !important;
+}
+
 
 /* Search form */
 input[type=text] {
 	font-weight: 700;
 	border: none;
-  }
+}
