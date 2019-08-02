@@ -16,7 +16,7 @@
 /* 
     Modules
 */ 
-import * as express from 'express'; // Express web server framework
+import express from 'express'; // Express web server framework
 import * as request from 'request'; // used for http requests
 //var querystring = require('querystring'); 
 //var cookieParser = require('cookie-parser');
@@ -27,7 +27,7 @@ import * as request from 'request'; // used for http requests
 //var favicon = require('serve-favicon');
 //var path = require('path'); //local path for filesystem read and writes
 
-import { authOptions } from './Classes/SpotifyAuthentication';
+import { getToken } from './Classes/SpotifyAuthentication';
 
 /* 
     Constants
@@ -35,34 +35,22 @@ import { authOptions } from './Classes/SpotifyAuthentication';
 //port used for the server
 const PORT = 8000;
 
-// your application requests authorization
+// Create a new express application instance
+const app = express();
 
-request.post(authOptions, function(error: any, response: any, body: any) {
-  if (!error && response.statusCode === 200) {
-    // use the access token to access the Spotify Web API
-    let options = {
-      url: 'https://api.spotify.com/v1/users/jmperezperez',
-      headers: {
-        'Authorization': 'Bearer ' + JSON.parse(body).access_token
-      },
-      json: true
-    };
-    request.get(options, function(error: any, response: any, body: any) {
-      console.log(body);
-    });
-  }
-  else {
-    console.log(error);
-  }
+app.get('/', function (req, res) {
+  res.send('This is adv');
 });
 
-// Create a new express application instance
-//const app: express.Application = express();
+app.listen(PORT, function () {
+  console.log('Listening on port ', PORT);
+});
 
-//app.get('/', function (req, res) {
-//  res.send('This is adv');
-//});
-
-//app.listen(PORT, function () {
-//  console.log('Listening on port ', PORT);
-//});
+// your application requests authorization
+getToken().then(
+  value =>  {
+    console.log(value);
+  }, reason => {
+    console.log(reason);
+  }
+);
