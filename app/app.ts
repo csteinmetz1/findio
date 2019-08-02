@@ -8,15 +8,16 @@
  *  For more information, read
  *  https://github.com/csteinmetz1/adv
  * 
- *  Built for the r/ProgrammerHumor Hackathon
- *  by Christian Steinmetz & Sean Myers
+ *  Authors: Christian Steinmetz & Sean Myers
+ *  Date: Aug 1, 2019
+ *  Purpose: Built for the /r/ProgrammerHumor Hackathon
  */
 
 /* 
     Modules
 */ 
-var express = require('express'); // Express web server framework
-var request = require('request'); // used for http requests
+import * as express from 'express'; // Express web server framework
+import * as request from 'request'; // used for http requests
 //var querystring = require('querystring'); 
 //var cookieParser = require('cookie-parser');
 //var session = require('client-sessions'); // store user data in cookies
@@ -25,7 +26,8 @@ var request = require('request'); // used for http requests
 //var bodyparser = require('body-parser'); // 
 //var favicon = require('serve-favicon');
 //var path = require('path'); //local path for filesystem read and writes
-var keys = require('./keys'); // Spotify API keys file
+
+import { authOptions } from './Classes/SpotifyAuthentication';
 
 /* 
     Constants
@@ -33,38 +35,24 @@ var keys = require('./keys'); // Spotify API keys file
 //port used for the server
 const PORT = 8000;
 
-// Set API keys for client authentication
-const client_id = keys.client_id;
-const client_secret = keys.client_secret;
-const redirect_uri = keys.redirect_uri;
-
 // your application requests authorization
-var authOptions = {
-  url: 'https://accounts.spotify.com/api/token',
-  headers: {
-    'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
-  },
-  form: {
-    grant_type: 'client_credentials'
-  },
-  json: true
-};
 
 request.post(authOptions, function(error: any, response: any, body: any) {
   if (!error && response.statusCode === 200) {
-
     // use the access token to access the Spotify Web API
-    var token = body.access_token;
-    var options = {
+    let options = {
       url: 'https://api.spotify.com/v1/users/jmperezperez',
       headers: {
-        'Authorization': 'Bearer ' + token
+        'Authorization': 'Bearer ' + JSON.parse(body).access_token
       },
       json: true
     };
     request.get(options, function(error: any, response: any, body: any) {
       console.log(body);
     });
+  }
+  else {
+    console.log(error);
   }
 });
 
