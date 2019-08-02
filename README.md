@@ -3,27 +3,38 @@ The Spotify search you don't need and never wanted.
 
 ## Setup
 
-You will need Node.js installed on your platform.
+You will need [Node.js](https://nodejs.org/en/) installed on your platform.
 
-1. Get the code
+**1. Get the code**
 ```
 git clone https://github.com/csteinmetz1/adv
 ```
 
-2. Install modules
+**2. Install modules**
 ```
 npm install
 ```
 
-3. Build
-```
-npm run tsc
+**3. Setup [Spotify Web API keys](https://developer.spotify.com/dashboard)**
+
+You will need a Spotify account and then create an application to get the keys.
+Once you have the keys create a new file `app/keys.ts`, with the following structure:
+
+```typescript
+export const keys = {
+  client_id: 'YOUR_CLIENT_ID',
+  client_secret: 'YOUR_CLIENT_SECRET',
+  redirect_uri: 'http://localhost:8888/callback'
+}
 ```
 
-4. Run
+(For judging the Hackathon just message us and we can send you the `keys.ts` file)
+
+**4. Build and run**
 ```
-node build/app.js
+npm run prod
 ```
 
 ## License
-MIT
+The MIT License
+Copyright (c) 2010-2019 [Christian Steinmetz](https://www.christiansteinmetz.com/) & [Sean Myers](https://seanmyers.xyz/)
