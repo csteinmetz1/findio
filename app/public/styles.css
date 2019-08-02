@@ -1,0 +1,46 @@
+body { 
+	color: #fff;
+	background: #121212; 
+	font-family: proxima-nova,sans-serif;
+	font-style: normal;
+}
+
+.title {
+	text-align: center;
+}
+
+.grey-light {
+	background: #232323;
+}
+
+.grey {
+	background: #171717;
+}
+
+.main-background {
+	background: #121212;
+}
+
+.form-control {
+	padding: 30px 50px 30px 50px;
+	color: #fff;
+	caret-color: #1db954;
+	font-size: 40px;
+	background-color: #282828
+}
+
+.form-control::placeholder {
+	color: rgb(80, 80, 80);
+	font-size: 40px;
+}
+
+.form-control:focus {
+	color: #fff;
+	background-color: #282828
+}
+
+/* Search form */
+input[type=text] {
+	font-weight: 700;
+	border: none;
+  }
