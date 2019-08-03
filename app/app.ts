@@ -30,12 +30,14 @@ import { search } from './Classes/SpotifySearch';
 */
 //port used for the server
 const PORT = 8000;
-var token: string = "";
+let token: string = "";
 
 // Create a new express application instance
 const app = express();
 app.use(express.static(path.join(__dirname, 'public/')));
 app.use(express.urlencoded({ extended: true }));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '/views'));
 
 // application requests authorization
 getToken().then(
@@ -52,12 +54,12 @@ app.post('/search', (req, res) => {
   console.log(query)
   search(query, token).then(
     result => {
-      console.log(result);
+      console.log(result.tracks.items);
+      res.render('results.ejs', { results : result.tracks.items} )
     }, error => {
       console.log(error);
     }
   );
-  res.end()
 })
 
 app.listen(PORT, function () {

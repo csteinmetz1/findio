@@ -12,7 +12,7 @@ const authOptions = {
 }
 
 export function getToken() {
-  return new Promise(function (resolve, reject) {
+  return new Promise<string>(function (resolve, reject) {
     request.post(authOptions, function(error: any, response: any, body: any) {
       if (!error && response.statusCode === 200) {
         resolve(JSON.parse(body).access_token);
