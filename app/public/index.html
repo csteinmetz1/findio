@@ -26,8 +26,12 @@
 
   <div class="container-fluid">
     <div class="md-form mt-0"> 
-        <input class="form-control search-input-form" type="text" placeholder="Start typing..." aria-label="Search">
-    </div>
+        <form method="POST" action="/search">
+          <input class="form-control search-input-form" name="query" type="text" placeholder="Start typing..." aria-label="Search">
+          <div style="margin: 25px">
+              <button type="submit" class="btn btn-outline-light btn-lg btn-block">Search</button>
+          </div>
+        </form>
   </div>
 
 	<!-- Including Bootstrap JS (with its jQuery dependency) so that dynamic components work -->

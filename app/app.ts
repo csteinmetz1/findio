@@ -23,26 +23,43 @@ import path from 'path';
     Local Imports
 */
 import { getToken } from './Classes/SpotifyAuthentication';
+import { search } from './Classes/SpotifySearch';
 
 /* 
     Constants
 */
 //port used for the server
 const PORT = 8000;
+var token: string = "";
 
 // Create a new express application instance
 const app = express();
-app.use(express.static(path.join(__dirname, 'public/')))
+app.use(express.static(path.join(__dirname, 'public/')));
+app.use(express.urlencoded({ extended: true }));
 
-app.listen(PORT, function () {
-  console.log('Listening on port ', PORT);
-});
-
-// your application requests authorization
+// application requests authorization
 getToken().then(
   value =>  {
     console.log(value);
+    token = value;
   }, reason => {
     console.log(reason);
   }
 );
+
+app.post('/search', (req, res) => {
+  const query = req.body.query;
+  console.log(query)
+  search(query, token).then(
+    result => {
+      console.log(result);
+    }, error => {
+      console.log(error);
+    }
+  );
+  res.end()
+})
+
+app.listen(PORT, function () {
+  console.log('Listening on port ', PORT);
+});

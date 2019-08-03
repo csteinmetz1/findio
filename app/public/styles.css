@@ -57,3 +57,14 @@ input[type=text] {
 	font-weight: 700;
 	border: none;
 }
+
+.btn-outline-light {
+	outline: none;
+    color: rgb(80, 80, 80);
+    border-color: rgb(80, 80, 80);
+}
+
+.btn-outline-light:focus {
+	box-shadow: 0 0 0 0.2rem rgb(80, 80, 80);
+	outline: none;
+}
