@@ -5,9 +5,8 @@ body {
 	font-style: normal;
 }
 
-.container-fluid {
-	padding-left: 0px;
-	padding-right: 0px;
+#container-pad {
+	padding: 0;
 }
 
 .title {
@@ -51,7 +50,6 @@ body {
 	outline: none !important;
 }
 
-
 /* Search form */
 input[type=text] {
 	font-weight: 700;
@@ -67,4 +65,18 @@ input[type=text] {
 .btn-outline-light:focus {
 	box-shadow: 0 0 0 0.2rem rgb(80, 80, 80);
 	outline: none;
+}
+
+.results-title {
+	text-align: center;
+	color: #fff;
+	background: #121212; 
+	font-family: proxima-nova,sans-serif;
+	font-style: normal;
+	font-size: 40px;
+	font-weight: 700;
+}
+
+#background-red {
+	background: rgb(221, 134, 134);
 }
