@@ -10,7 +10,20 @@ body {
 }
 
 .title {
-	text-align: center;
+	font-size: 20px;
+	padding: 0;
+	margin: 0;
+}
+
+.artist {
+	font-size: 14px;
+	padding: 0;
+	margin:0;
+	color: rgb(119, 119, 119);
+}
+
+.album-cover {
+	padding: 30px 30px 0px 30px;
 }
 
 .grey-light {
@@ -30,7 +43,7 @@ body {
 	color: #fff;
 	caret-color: #1db954;
 	font-size: 40px;
-	background-color: #282828
+	background-color: #282828;
 }
 
 .form-control::placeholder {
@@ -67,16 +80,48 @@ input[type=text] {
 	outline: none;
 }
 
+.nav-container {
+	background-color: #343a40 !important;
+}
+
 .results-title {
-	text-align: center;
 	color: #fff;
-	background: #121212; 
 	font-family: proxima-nova,sans-serif;
 	font-style: normal;
-	font-size: 40px;
+	font-size: 36px;
 	font-weight: 700;
+	padding: 0;
+}
+
+.my-link {
+	font-size: 24px;
+	font-weight: 700;
+	color: #fff;
+	padding: 0;
+	text-decoration: none;
+}
+
+.my-link:hover {
+	color: inherit;
+	opacity: .75;
+	text-decoration: none;
 }
 
 #background-red {
 	background: rgb(221, 134, 134);
+}
+
+.my-grid {
+	display: grid;
+	width: 100%;
+	grid-template-columns: 25% 75%;
+	grid-template-rows: 1fr;
+}
+
+#mgi-1 {
+	justify-content: start;
+}
+
+#mgi-2 {
+	justify-self: center;
 }
