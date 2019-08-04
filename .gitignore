@@ -1,7 +1,15 @@
+# Editor
+.DS_Store
+.vscode
+
+# Python + NN
+env/
+data/
+__pycache__
+
+# TypeScript
+keys.ts
+.env
 node_modules
 build
 npm-debug.log
-.env
-.DS_Store
-keys.js
-keys.ts
