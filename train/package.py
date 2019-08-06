@@ -1,17 +1,20 @@
 import os
+import sys
 import glob
 import h5py
 import json
 import numpy as np
 from PIL import Image
 
-covers = glob.glob('../data/covers/*.jpg')
+covers = glob.glob('data/covers/*.jpg')
 nsamples = len(covers)
+
+print(nsamples)
 
 x_data = np.empty([nsamples, 64, 64, 3])
 y_data = np.empty([nsamples, 7])
 
-with open('../data/track_data.json', 'r') as data_fp:
+with open('data/track_data.json', 'r') as data_fp:
     track_data = json.load(data_fp)
 
 nloaded = 0
@@ -42,13 +45,13 @@ for cover in covers:
 	except:
 		print("Skipping...")
 
-x_train = x_data[:38000]
-x_val   = x_data[38000:42000]
-x_test  = x_data[42000:]
+x_train = x_data[:90000]
+x_val   = x_data[90000:95000]
+x_test  = x_data[95000:]
 
-y_train = y_data[:38000]
-y_val   = y_data[38000:42000]
-y_test  = y_data[42000:]
+y_train = y_data[:90000]
+y_val   = y_data[90000:95000]
+y_test  = y_data[95000:]
 
 print(x_train.shape)
 print(x_val.shape)
@@ -59,7 +62,7 @@ print(y_val.shape)
 print(y_test.shape)
 
 # open a hdf5 file and create earrays
-hdf5_file = h5py.File('../data/covers.h5', mode='w')
+hdf5_file = h5py.File('data/covers100k.h5', mode='w')
 
 hdf5_file.create_dataset("x_train", x_train.shape, np.int8)
 hdf5_file["x_train"][...] = x_train

@@ -8,7 +8,7 @@ from models import simpleCNN
 tf.compat.v1.disable_eager_execution()
 
 # load training and test data
-hdf5_file = h5py.File('../data/covers.hdf5', "r")
+hdf5_file = h5py.File('data/covers100k.h5', "r")
 
 x_train = hdf5_file['x_train']
 x_val   = hdf5_file['x_val']
@@ -26,4 +26,5 @@ model.fit(x_train, y_train,
         	validation_data=(x_val, y_val),
 			shuffle="batch")
 
-model.save_weights('first_try.h5')  # always save your weights after training or during training
+model.save_weights('models/first_try.h5')  # always save your weights after training or during training
+tfjs.converters.save_keras_model(model, 'models/')

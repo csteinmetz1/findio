@@ -5,6 +5,7 @@
 # Python + NN
 env/
 data/
+models/
 __pycache__
 
 # TypeScript
