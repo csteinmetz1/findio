@@ -1,7 +1,7 @@
 import * as request from 'request';
 
-export function search(query: string, token: string) {
-  return new Promise(function (resolve, reject) {
+function search(query: string, token: string) {
+  return new Promise<any>(function (resolve, reject) {
 
 	const options = {
 		url: 'https://api.spotify.com/v1/search/?q=' + query + '&type=track&limit=40',
@@ -12,12 +12,14 @@ export function search(query: string, token: string) {
 	};
 
 	request.get(options, function(error: any, response: any, body: any) {
-		if (!error && response.statusCode === 200) {
-			resolve(body);
-		}
-		else {
-			reject(error);
-		}
-	});
+			if (!error && response.statusCode === 200) {
+				resolve(body);
+			}
+			else {
+				reject(error);
+			}
+		});
   });
 }
+
+export { search }

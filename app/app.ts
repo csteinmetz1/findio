@@ -54,7 +54,6 @@ app.post('/search', (req, res) => {
   console.log(query)
   search(query, token).then(
     result => {
-      console.log(result.tracks.items);
       res.render('results.ejs', { results : result.tracks.items, query : query} )
     }, error => {
       console.log(error);

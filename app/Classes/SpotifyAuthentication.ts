@@ -11,7 +11,7 @@ const authOptions = {
   }
 }
 
-export function getToken() {
+ function getToken() {
   return new Promise<string>(function (resolve, reject) {
     request.post(authOptions, function(error: any, response: any, body: any) {
       if (!error && response.statusCode === 200) {
@@ -23,3 +23,5 @@ export function getToken() {
     });
   });
 }
+
+export { getToken }
