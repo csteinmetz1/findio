@@ -26,7 +26,7 @@ model.summary()
 
 # start training
 model.fit(x_train, y_train,
-        	epochs=10,
+        	epochs=1,
         	validation_data=(x_val, y_val),
 			shuffle="batch")
 
@@ -34,7 +34,7 @@ model.fit(x_train, y_train,
 res = model.evaluate(x_test, y_test)
 print("Test error:", res)
 
-print(model.predict(x_test[1]), y_test[1])
+#rint(model.predict(x_test[1]), y_test[1])
 
 # save results for Python and JS
 modeldir = 'models/08072019/'
