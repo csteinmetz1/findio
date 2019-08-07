@@ -26,6 +26,79 @@
     <div class="md-form mt-0"> 
       <form method="POST" action="/search">
         <input class="form-control search-input-form" name="query" type="text" placeholder="Start typing..." aria-label="Search">
+
+        <div class="container"> 
+          <div class="row">
+
+            <div class="col-md-4">
+              <h4>Image</h4>
+              <canvas id="cover" width="64" height="64" style="border:1px solid #fff;"> </canvas>
+              <input id="file" type="file" accept="image/*">
+              <table>
+                <tr>
+                  <td>Danceability</td>
+                  <td id="danceability"></td>
+                </tr>
+                <tr>
+                  <td>Energy</td>
+                  <td id="energy"></td>
+                </tr>
+                <tr>
+                  <td>Mode</td>
+                  <td id="mode"></td>
+                </tr>
+                <tr>
+                  <td>Acousticness</td>
+                  <td id="acousticness"></td>
+                </tr>
+                <tr>
+                  <td>Instrumentalness</td>
+                  <td id="instrumentalness"></td>
+                </tr>
+                <tr>
+                  <td>Liveness</td>
+                  <td id="liveness"></td>
+                </tr>
+                <tr>
+                  <td>Valence</td>
+                  <td id="valence"></td>
+                </tr>
+              </table>
+
+            </div>
+            
+            <div class="col-md-4">
+              <h4>Year</h4>
+              <select> <!-- can you figure out a way to do this dynamically? -->
+                <option value="2019">MMXIX</option>
+                <option value="2018">MMXVIII</option>
+                <option value="2017">MMXVII</option>
+                <option value="2016">MMXVI</option>
+                <option value="2015">MMXV</option>
+                <option value="2014">MMXIV</option>
+                <option value="2013">MMXIII</option>
+                <option value="2012">MMXII</option>
+                <option value="2011">MMXI</option>
+                <option value="2010">MMX</option>
+                <option value="2009">MMVIX</option>
+                <option value="2008">MMVIII</option>
+                <option value="2007">MMVII</option>
+              </select>
+            </div>
+
+            <div class="col-md-4">
+              <h4>Popularity</h4>
+              <section class="range-slider">
+                <span class="rangeValues"></span>
+                <input value="500" min="500" max="50000" step="500" type="range">
+                <input value="50000" min="500" max="50000" step="500" type="range">
+              </section>
+            </div>
+
+          </div>
+
+        </div>
+
         <div style="margin: 25px">
             <button type="submit" class="btn btn-outline-light btn-lg btn-block">Search</button>
         </div>
@@ -33,18 +106,32 @@
     </div>
   </div>
 
-  <div>
-    <canvas id="cover" width="64" height="64" style="border:1px solid #fff;"> </canvas>
-    <input id="file" type="file" accept="image/*">
-  </div>
-
   <script>
-    loadModel('models/model.json').then(
+    loadModel('models/08072019/model.json').then(
       model =>  {
         document.getElementById("file").addEventListener("change", function (event) {
         compress(event).then(
           image =>  {
-            predict(image, model);
+            predict(image, model).then(
+              prediction =>  {
+                console.log(prediction[0])
+                var danceability = document.getElementById("danceability");
+                danceability.innerHTML = prediction[0][0].toFixed(2);
+                var energy = document.getElementById("energy");
+                energy.innerHTML = prediction[0][1].toFixed(2);
+                var mode = document.getElementById("mode");
+                mode.innerHTML = prediction[0][2].toFixed(2);
+                var acousticness = document.getElementById("acousticness");
+                acousticness.innerHTML = prediction[0][3].toFixed(2);
+                var instrumentalness = document.getElementById("instrumentalness");
+                instrumentalness.innerHTML = prediction[0][4].toFixed(2);
+                var liveness = document.getElementById("liveness");
+                liveness.innerHTML = prediction[0][5].toFixed(2);
+                var valence = document.getElementById("valence");
+                valence.innerHTML = prediction[0][6].toFixed(2);
+              }, reason => {
+                console.log(reason);
+              });
           }, reason => {
             console.log(reason);
           });
