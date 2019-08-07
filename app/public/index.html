@@ -13,14 +13,12 @@
     <link rel="stylesheet" href="https://use.typekit.net/wis1oow.css">
     <link type="text/css" rel="stylesheet" href="/styles.css">
   
-    <script src="/js/compress.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- Leave those next 4 lines if you care about users using IE8 -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <script src="/js/compress.js"></script>
+    <script src="/js/predict.js"></script>
+    <script src="/js/load.js"></script>
+
   </head>
   <body>
 
@@ -41,9 +39,20 @@
   </div>
 
   <script>
-    document.getElementById("file").addEventListener("change", function (event) {
-      compress(event);
-    });
+    loadModel('models/model.json').then(
+      model =>  {
+        document.getElementById("file").addEventListener("change", function (event) {
+        compress(event).then(
+          image =>  {
+            predict(image, model);
+          }, reason => {
+            console.log(reason);
+          });
+        });
+      }, reason => {
+        console.log(reason);
+      }
+    );
   </script>
 
 	<!-- Including Bootstrap JS (with its jQuery dependency) so that dynamic components work -->
