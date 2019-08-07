@@ -30,7 +30,12 @@ export const keys = {
 
 (For judging the Hackathon just message us and we can send you the `keys.ts` file)
 
-**4. Build and run**
+**4. Download model**
+
+Download the latest trained model from [here](https://drive.google.com/drive/folders/1NSJYIw4Hi5iZ7QeZ8zO5EbPCgvRiaHTs?usp=sharing).
+Unzip the archive and place the model assets in the `app/public/models/` directory.s
+
+**5. Build and run**
 ```
 npm run prod
 ```
