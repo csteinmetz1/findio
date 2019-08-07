@@ -31,7 +31,7 @@ def simpleCNN():
     model.add(Activation('relu'))
     #model.add(Dropout(0.5))
     model.add(Dense(7))
-    model.add(Activation('sigmoid'))
+    model.add(Activation('linear'))
 
     model.compile(loss='mse', optimizer='adam')
 

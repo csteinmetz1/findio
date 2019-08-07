@@ -25,16 +25,16 @@ model.summary()
 #sys.exit(0)
 
 # start training
-model.fit(x_train, y_train,
-        	epochs=1,
-        	validation_data=(x_val, y_val),
+model.fit(x_train[:100], y_train[:100],
+        	epochs=50,
+        	validation_data=(x_val[:100], y_val[:100]),
 			shuffle="batch")
 
 # evaluate
 res = model.evaluate(x_test, y_test)
 print("Test error:", res)
 
-#rint(model.predict(x_test[1]), y_test[1])
+print(model.predict(x_test[:2]), y_test[:2])
 
 # save results for Python and JS
 modeldir = 'models/08072019/'
