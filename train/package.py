@@ -71,9 +71,9 @@ hdf5_file["x_val"][...] = x_val
 hdf5_file.create_dataset("x_test", x_test.shape, np.int8)
 hdf5_file["x_test"][...] = x_test
 
-hdf5_file.create_dataset("y_train", y_train.shape, np.int8)
+hdf5_file.create_dataset("y_train", y_train.shape, np.float32)
 hdf5_file["y_train"][...] = y_train
-hdf5_file.create_dataset("y_val", y_val.shape, np.int8)
+hdf5_file.create_dataset("y_val", y_val.shape, np.float32)
 hdf5_file["y_val"][...] = y_val
-hdf5_file.create_dataset("y_test", y_test.shape, np.int8)
+hdf5_file.create_dataset("y_test", y_test.shape, np.float32)
 hdf5_file["y_test"][...] = y_test

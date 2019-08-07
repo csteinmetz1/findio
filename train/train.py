@@ -1,6 +1,8 @@
 import tensorflowjs as tfjs
 import tensorflow as tf
 import numpy as np
+import os
+import sys
 import h5py
 
 from models import simpleCNN
@@ -19,12 +21,25 @@ y_test  = hdf5_file['y_test']
 
 # build our nice NN model
 model = simpleCNN()
+model.summary()
+#sys.exit(0)
 
 # start training
 model.fit(x_train, y_train,
-        	epochs=50,
+        	epochs=10,
         	validation_data=(x_val, y_val),
 			shuffle="batch")
 
-model.save_weights('models/first_try.h5')  # always save your weights after training or during training
-tfjs.converters.save_keras_model(model, 'models/')
+# evaluate
+res = model.evaluate(x_test, y_test)
+print("Test error:", res)
+
+print(model.predict(x_test[1]), y_test[1])
+
+# save results for Python and JS
+modeldir = 'models/08072019/'
+if not os.path.isdir(modeldir):	
+	os.makedirs(modeldir)
+
+model.save_weights(os.path.join(modeldir, 'python08072019.h5')) # always save your weights after training or during training
+tfjs.converters.save_keras_model(model, modeldir)
