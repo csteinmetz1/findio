@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://use.typekit.net/wis1oow.css">
     <link type="text/css" rel="stylesheet" href="/styles.css">
   
-    </script>
+    <script src="/js/compress.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- Leave those next 4 lines if you care about users using IE8 -->
@@ -32,7 +32,19 @@
             <button type="submit" class="btn btn-outline-light btn-lg btn-block">Search</button>
         </div>
       </form>
+    </div>
   </div>
+
+  <div>
+    <canvas id="cover" width="64" height="64" style="border:1px solid #fff;"> </canvas>
+    <input id="file" type="file" accept="image/*">
+  </div>
+
+  <script>
+    document.getElementById("file").addEventListener("change", function (event) {
+      compress(event);
+    });
+  </script>
 
 	<!-- Including Bootstrap JS (with its jQuery dependency) so that dynamic components work -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
