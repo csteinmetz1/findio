@@ -38,7 +38,7 @@
   <div class="container-fluid">
     <% for(var i=0; i < results.length; i+= 4) { %>
       <div class="row">
-        <% for (var j=0; j < 4; j++) { %>
+        <% for (var j=0; (j < 4) && (i+j < results.length); j++) { %>
           <div class="col-md-3 album-cover">
             <a href="<%- results[i+j].external_urls['spotify'] %>">
                 <img class="img-fluid" src="<%- results[i+j].album['images'][0]['url'] %>" >
