@@ -50,11 +50,9 @@ getToken().then(
 );
 
 app.post('/search', (req, res) => {
-  const query = req.body.query;
-  console.log(query)
-  search(query, token).then(
+  search(req.body.query, req.body.startYear, req.body.stopYear, token).then(
     result => {
-      res.render('results.ejs', { results : result.tracks.items, query : query} )
+      res.render('results.ejs', { results : result.tracks.items, query : req.body.query} )
     }, error => {
       console.log(error);
       res.render('error.ejs', {error: error})
