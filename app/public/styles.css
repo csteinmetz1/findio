@@ -63,6 +63,13 @@ body {
 	outline: none !important;
 }
 
+.audio-feature-input {
+	background-color: #212529;
+	color: #fff;
+	width: 40px;
+	font-weight: 300 !important;
+}
+
 /* Search form */
 input[type=text] {
 	font-weight: 700;
