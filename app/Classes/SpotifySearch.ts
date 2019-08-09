@@ -1,10 +1,10 @@
 import * as request from 'request';
 
-function search(query: string, token: string) {
+function search(query: string, startYear: string, stopYear: string, token: string) {
   return new Promise<any>(function (resolve, reject) {
 
 	const options = {
-		url: 'https://api.spotify.com/v1/search/?q=' + query + '&type=track&limit=40',
+		url: 'https://api.spotify.com/v1/search/?q=' + query + '%20year:' + startYear + '-' + stopYear +'&type=track&limit=40',
 		headers: {
 		  'Authorization': 'Bearer ' + token
 		},
