@@ -37,31 +37,31 @@
               <table>
                 <tr>
                   <td>Danceability</td>
-                  <td id="danceability"></td>
+                  <td><input class="audio-feature-input" id="danceability" name="danceability" type="text" min=0 max=1></td>
                 </tr>
                 <tr>
                   <td>Energy</td>
-                  <td id="energy"></td>
+                  <td><input class="audio-feature-input" id="energy" name="energy" type="text"></td>
                 </tr>
                 <tr>
                   <td>Mode</td>
-                  <td id="mode"></td>
+                  <td><input class="audio-feature-input" id="mode" name="mode" type="text"></td>
                 </tr>
                 <tr>
                   <td>Acousticness</td>
-                  <td id="acousticness"></td>
+                  <td><input class="audio-feature-input" id="acousticness" name="acousticness" type="text"></td>
                 </tr>
                 <tr>
                   <td>Instrumentalness</td>
-                  <td id="instrumentalness"></td>
+                  <td><input class="audio-feature-input" id="instrumentalness" name="instrumentalness" type="text"></td>
                 </tr>
                 <tr>
                   <td>Liveness</td>
-                  <td id="liveness"></td>
+                  <td><input class="audio-feature-input" id="liveness" name="liveness" type="text"></td>
                 </tr>
                 <tr>
                   <td>Valence</td>
-                  <td id="valence"></td>
+                  <td><input class="audio-feature-input" id="valence" name="valence" type="text"></td>
                 </tr>
               </table>
 
@@ -69,7 +69,24 @@
             
             <div class="col-md-4">
               <h4>Year</h4>
-              <select> <!-- can you figure out a way to do this dynamically? -->
+              <p>Start</p>
+              <select name="startYear"> <!-- can you figure out a way to do this dynamically? -->
+                <option value="2019">MMXIX</option>
+                <option value="2018">MMXVIII</option>
+                <option value="2017">MMXVII</option>
+                <option value="2016">MMXVI</option>
+                <option value="2015">MMXV</option>
+                <option value="2014">MMXIV</option>
+                <option value="2013">MMXIII</option>
+                <option value="2012">MMXII</option>
+                <option value="2011">MMXI</option>
+                <option value="2010">MMX</option>
+                <option value="2009">MMVIX</option>
+                <option value="2008">MMVIII</option>
+                <option value="2007">MMVII</option>
+              </select>
+              <p>End</p>
+              <select name="stopYear"> <!-- can you figure out a way to do this dynamically? -->
                 <option value="2019">MMXIX</option>
                 <option value="2018">MMXVIII</option>
                 <option value="2017">MMXVII</option>
@@ -116,19 +133,19 @@
               prediction =>  {
                 console.log(prediction[0])
                 var danceability = document.getElementById("danceability");
-                danceability.innerHTML = prediction[0][0].toFixed(2);
+                danceability.value = prediction[0][0].toFixed(2);
                 var energy = document.getElementById("energy");
-                energy.innerHTML = prediction[0][1].toFixed(2);
+                energy.value = prediction[0][1].toFixed(2);
                 var mode = document.getElementById("mode");
-                mode.innerHTML = prediction[0][2].toFixed(2);
+                mode.value = prediction[0][2].toFixed(2);
                 var acousticness = document.getElementById("acousticness");
-                acousticness.innerHTML = prediction[0][3].toFixed(2);
+                acousticness.value = prediction[0][3].toFixed(2);
                 var instrumentalness = document.getElementById("instrumentalness");
-                instrumentalness.innerHTML = prediction[0][4].toFixed(2);
+                instrumentalness.value = prediction[0][4].toFixed(2);
                 var liveness = document.getElementById("liveness");
-                liveness.innerHTML = prediction[0][5].toFixed(2);
+                liveness.value = prediction[0][5].toFixed(2);
                 var valence = document.getElementById("valence");
-                valence.innerHTML = prediction[0][6].toFixed(2);
+                valence.value = prediction[0][6].toFixed(2);
               }, reason => {
                 console.log(reason);
               });
