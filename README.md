@@ -40,6 +40,25 @@ Unzip the archive and place the model assets in the `app/public/models/` directo
 npm run prod
 ```
 
+## More details
+
+If you want to train the model with your own data follow these steps.
+
+Navigate to the `train` directory
+```
+cd train
+```
+
+Install Python dependencies
+```
+pip install -r requirements.txt
+```
+
+Run the training script
+```
+python train.py
+```
+
 ## License
 The MIT License
 Copyright (c) 2010-2019 [Christian Steinmetz](https://www.christiansteinmetz.com/) & [Sean Myers](https://seanmyers.xyz/)
