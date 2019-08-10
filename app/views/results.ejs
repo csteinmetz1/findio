@@ -36,6 +36,12 @@
     </div>
 
   <div class="container-fluid">
+    <!-- i would put something here that checks the length of results if results < 1 then we got no data so show an error -->
+    <% if(results < 1) { %>
+      <div> 
+        No results. bitch.
+      </div>
+    <% } %>
     <% for(var i=0; i < results.length; i+= 4) { %>
       <div class="row">
         <% for (var j=0; (j < 4) && (i+j < results.length); j++) { %>
