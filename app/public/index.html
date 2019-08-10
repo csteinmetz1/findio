@@ -38,37 +38,37 @@
               <table>
                 <tr>
                   <td>Danceability</td>
-                  <td><input class="audio-feature-input" id="danceability" name="danceability" type="text" min=0 max=1></td>
+                  <td><input class="audio-feature-input" id="danceability" name="danceability" type="number" min=0.00 max=1.00 step=0.01></td>
                 </tr>
                 <tr>
                   <td>Energy</td>
-                  <td><input class="audio-feature-input" id="energy" name="energy" type="text"></td>
+                  <td><input class="audio-feature-input" id="energy" name="energy" type="number" min=0.00 max=1.00 step=0.01></td>
                 </tr>
                 <tr>
                   <td>Mode</td>
-                  <td><input class="audio-feature-input" id="mode" name="mode" type="text"></td>
+                  <td><input class="audio-feature-input" id="mode" name="mode" type="number" min=0.00 max=1.00 step=0.01></td>
                 </tr>
                 <tr>
                   <td>Acousticness</td>
-                  <td><input class="audio-feature-input" id="acousticness" name="acousticness" type="text"></td>
+                  <td><input class="audio-feature-input" id="acousticness" name="acousticness" type="number" min=0.00 max=1.00 step=0.01></td>
                 </tr>
                 <tr>
                   <td>Instrumentalness</td>
-                  <td><input class="audio-feature-input" id="instrumentalness" name="instrumentalness" type="text"></td>
+                  <td><input class="audio-feature-input" id="instrumentalness" name="instrumentalness" type="number" min=0.00 max=1.00 step=0.01></td>
                 </tr>
                 <tr>
                   <td>Liveness</td>
-                  <td><input class="audio-feature-input" id="liveness" name="liveness" type="text"></td>
+                  <td><input class="audio-feature-input" id="liveness" name="liveness" type="number" min=0.00 max=1.00 step=0.01></td>
                 </tr>
                 <tr>
                   <td>Valence</td>
-                  <td><input class="audio-feature-input" id="valence" name="valence" type="text"></td>
+                  <td><input class="audio-feature-input" id="valence" name="valence" type="number" min=0.00 max=1.00 step=0.01></td>
                 </tr>
               </table>
               <p style="margin-top: 10px; text-align: center">
                 Tolerance
                 <br>
-                <input id="tolerance" name="tolerance" data-slider-id='tolerance' type="text" data-slider-min="0.0" data-slider-max="2.0" data-slider-step="0.05" data-slider-value="2.0"/>
+                <input id="tolerance" name="tolerance" data-slider-id='tolerance' type="text" data-slider-min="0.0" data-slider-max="5.0" data-slider-step="0.1" data-slider-value="2.0"/>
               </p>
             </div>
             
@@ -77,34 +77,57 @@
               <p>Start</p>
               <select name="startYear"> <!-- can you figure out a way to do this dynamically? -->
                 <option value="2019">MMXIX</option>
-                <option value="2018">MMXVIII</option>
+                <option value="2018">Old Town Road released</option>
                 <option value="2017">MMXVII</option>
-                <option value="2016">MMXVI</option>
+                <option value="2016">Harambe murdered</option>
                 <option value="2015">MMXV</option>
                 <option value="2014">MMXIV</option>
                 <option value="2013">MMXIII</option>
-                <option value="2012">MMXII</option>
+                <option value="2012">Gangnam Style released</option>
                 <option value="2011">MMXI</option>
                 <option value="2010">MMX</option>
                 <option value="2009">MMVIX</option>
                 <option value="2008">MMVIII</option>
-                <option value="2007">MMVII</option>
+                <option value="2007">First recorded Rickroll</option>
+                <option value="2004">Facebook founded</option>
+                <option value="2002">Star Wars Kid video created</option>
+                <option value="2001">Release of movie Shrek</option>
+                <option value="1996">eBay founded</option>
+                <option value="1991">Dissolution of USSR</option>
+                <option value="1986">Chernobyl disaster</option>
+                <option value="1969">Apollo 11 Moon Landing</option>
+                <option value="1986">Chernobyl disaster</option>
+                <option value="1962">Cuban Missile Crisis</option>
+                <option value="1953">Structure of DNA discovered</option>
+                <option value="1929" selected="selected">The Great Depression begins</option>
               </select>
-              <p>End</p>
+
+              <p style="margin-top: 10px">End</p>
               <select name="stopYear"> <!-- can you figure out a way to do this dynamically? -->
-                <option value="2019">MMXIX</option>
+                <option value="2019" selected="selected">MMXIX</option>
                 <option value="2018">MMXVIII</option>
                 <option value="2017">MMXVII</option>
-                <option value="2016">MMXVI</option>
+                <option value="2016">Harambe murdered</option>
                 <option value="2015">MMXV</option>
                 <option value="2014">MMXIV</option>
                 <option value="2013">MMXIII</option>
-                <option value="2012">MMXII</option>
+                <option value="2012">Gangnam Style released</option>
                 <option value="2011">MMXI</option>
                 <option value="2010">MMX</option>
                 <option value="2009">MMVIX</option>
                 <option value="2008">MMVIII</option>
-                <option value="2007">MMVII</option>
+                <option value="2007">First recorded Rickroll</option>
+                <option value="2004">Facebook founded</option>
+                <option value="2002">Star Wars Kid video created</option>
+                <option value="2001">Release of movie Shrek</option>
+                <option value="1996">eBay founded</option>
+                <option value="1991">Dissolution of USSR</option>
+                <option value="1986">Chernobyl disaster</option>
+                <option value="1969">Apollo 11 Moon Landing</option>
+                <option value="1986">Chernobyl disaster</option>
+                <option value="1962">Cuban Missile Crisis</option>
+                <option value="1953">Structure of DNA discovered</option>
+                <option value="1929">The Great Depression</option>
               </select>
             </div>
 

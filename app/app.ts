@@ -52,32 +52,36 @@ app.post('/search', (req, res) => {
   getToken()
   .then(function(token:string) {
     console.log(token)
-    const searchAudioFeatures = [req.body.danceability, req.body.energy, req.body.mode, req.body.acousticness, req.body.instrumentalness, req.body.liveness, req.body.valence];
+    const searchAudioFeatures = [req.body.danceability, req.body.energy, req.body.mode, req.body.acousticness, req.body.instrumentalness, req.body.liveness, req.body.valence].map( (element:string) => parseFloat(element) );
     const searchAudioFeatureTolerance = req.body.tolerance;
 
     let featureVectorWithinTolerance = function(track:any) {
       let difference = subtractVectors(track.audio_features, searchAudioFeatures);
       let distance = difference.reduce( (acc, cur) => acc + Math.pow(cur,2) );
-      console.log("distance: " + distance + "tolerance: " + searchAudioFeatureTolerance);
       if (distance < searchAudioFeatureTolerance) {
         return true;
       }
     }
     search(req.body.query, req.body.startYear, req.body.stopYear, token)
     .then(function(result) {
-      let trackIds:string[] = result.tracks.items.map( (track:any) => track.id );
-      getAudioFeatures(trackIds, token)
-      .then(function(audioFeatures) {
-        audioFeatures.map( 
-          function(f:any, index:number) {
+      // if user includes audio features use them to filter the search
+      if (searchAudioFeatures.every( (element:number) => !isNaN(element)) ) {
+        let trackIds:string[] = result.tracks.items.map( (track:any) => track.id );
+        getAudioFeatures(trackIds, token)
+        .then(function(audioFeatures) {
+          audioFeatures.map( function(f:any, index:number) {
             let featureVector = [f.danceability, f.energy, f.mode, f.acousticness, f.instrumentalness, f.liveness, f.valence] 
             result.tracks.items[index].audio_features = featureVector;
           });
-
-        let filteredTracks = result.tracks.items.filter(featureVectorWithinTolerance) 
-        res.render('results.ejs', { results : filteredTracks, query : req.body.query} )
-      });   
-      }, error => {
+        });
+        var filteredTracks = result.tracks.items.filter(featureVectorWithinTolerance) 
+      }
+      // if user doesn't provide audio features don't filter search
+      else {
+        var filteredTracks = result.tracks.items;
+      }
+      res.render('results.ejs', { results : filteredTracks, query : req.body.query} )   
+    }, function(error) {
         console.log(error);
         res.render('error.ejs', {error: error})
       });

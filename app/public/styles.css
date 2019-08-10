@@ -66,8 +66,9 @@ body {
 .audio-feature-input {
 	background-color: #212529;
 	color: #fff;
-	width: 40px;
+	width: 50px;
 	font-weight: 300 !important;
+	border: none;
 }
 
 /* Search form */
