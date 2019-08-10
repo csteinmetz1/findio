@@ -132,3 +132,11 @@ input[type=text] {
 #mgi-2 {
 	justify-self: center;
 }
+
+#tolerance .slider-selection {
+	background: #BABABA;
+}
+
+.tooltip.in {
+	opacity: 1;
+  }
