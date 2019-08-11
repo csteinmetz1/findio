@@ -27,7 +27,7 @@
     <div class="nav-container">
       <div class="my-grid">
         <div id="mgi-1">
-          <a class="my-link" href="/"> &larr; Go Back</a>
+          <a class="my-link" href="#" onclick="history.go(-1)"> &larr; Go Back</a>
         </div>
         <div id="mgi-2">
           <h2 class="results-title" ><%- query %></h2>
@@ -47,13 +47,34 @@
         <% for (var j=0; (j < 4) && (i+j < results.length); j++) { %>
           <div class="col-md-3 album-cover">
             <a href="<%- results[i+j].external_urls['spotify'] %>">
-                <img class="img-fluid" src="<%- results[i+j].album['images'][0]['url'] %>" >
+                <img class="img-fluid" src="<%- results[i+j].album['images'][0]['url'] %>" 
+                data-toggle="tooltip"  data-placement="right" data-html="true" 
+                title="popularity: <%-results[i+j].popularity %> <br>
+                       danceability: <%- results[i+j].audio_features[0] %> <br>
+                       energy:  <%- results[i+j].audio_features[1] %> <br>
+                       mode:  <%- results[i+j].audio_features[2] %> <br>
+                       acousticness:  <%- results[i+j].audio_features[3] %> <br>
+                       instrumentalness:  <%- results[i+j].audio_features[4] %> <br>
+                       liveness:  <%- results[i+j].audio_features[5] %> <br>
+                       valence:  <%- results[i+j].audio_features[6] %>">
             </a>
             <p class="title"><%- results[i+j].name %></p>
             <p class="artist"><%- results[i+j].artists[0].name %></p>
           </div>
         <% } %>
       </div>
+      <div class="row">
+        <% for (var j=0; (j < 4) && (i+j < results.length); j++) { %>
+          <div class="col-md-3 track-preview">
+          <% if(results[i+j].preview_url ) { %>
+            <audio id="audio<%- results[i+j].id %>">
+              <source src="<%- results[i+j].preview_url %>" type="audio/mpeg">
+            </audio>
+            <button id="button<%- results[i+j].id %>" class="btn btn-outline-light btn-sm btn-block" onclick="playAudio('<%-results[i+j].id %>')" type="button">Play preview</button>
+          <% } %>
+          </div>
+        <% } %>
+    </div>
     <% } %>
   </div>
 
@@ -61,5 +82,35 @@
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="/js/sliders.js"></script>
+  <script>
+    function playAudio(id) { 
+
+      // pause all currently playing tracks
+      var players = document.getElementsByTagName('audio');
+      for(i=0; i<players.length; i++) {
+        let playerid = players[i].id.replace('audio', '');
+        if (id != playerid) {
+          let button = document.getElementById("button" + id);
+          button.innerHTML = "Play preview";
+          players[i].pause();
+        }
+      }
+      
+      // play the desired track
+      let player = document.getElementById("audio" + id); 
+      let button = document.getElementById("button" + id);
+      console.log(player.paused)
+      if (player.paused) {
+        player.play(); 
+        button.innerHTML = "Pause preview";
+      }
+      else {
+        player.pause(); 
+        console.log("pause")
+        button.innerHTML = "Play preview";
+      }
+    } 
+  </script>
 </body>
 </html>

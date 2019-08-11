@@ -80,12 +80,15 @@ input[type=text] {
 .btn-outline-light {
 	outline: none;
     color: rgb(80, 80, 80);
-    border-color: rgb(80, 80, 80);
+	border-color: rgb(80, 80, 80);
+	box-shadow: none;
 }
 
 .btn-outline-light:focus {
-	box-shadow: 0 0 0 0.2rem rgb(80, 80, 80);
-	outline: none;
+	outline: none;	
+    color: rgb(80, 80, 80);
+	border-color: rgb(80, 80, 80);
+	box-shadow: none;
 }
 
 .nav-container {
@@ -93,11 +96,16 @@ input[type=text] {
 	position: fixed; /* Set the navbar to fixed position */
 	top: 0; /* Position the navbar at the top of the page */
 	width: 100%; /* Full width */
+	height: 60px;
 	z-index: 9999; /* Place that bitch on top */
 }
 
 .results-container {
 	margin-top: 50px;
+}
+
+.track-details {
+	font-size: 12px;
 }
 
 .results-title {
@@ -110,8 +118,9 @@ input[type=text] {
 }
 
 .my-link {
-	font-size: 24px;
-	font-weight: 700;
+	padding: 10px;
+	font-size: 18px;
+	font-weight: 300;
 	color: #fff;
 	padding: 0;
 	text-decoration: none;
@@ -148,4 +157,8 @@ input[type=text] {
 
 .tooltip.in {
 	opacity: 1;
-  }
+}
+
+.track-preview {
+	padding: 0px 30px 0px 30px;
+}

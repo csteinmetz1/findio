@@ -28,8 +28,7 @@ function search(searchParams:any, token: string) {
     request.get(options, function(error: any, response: any, body: any) {
       if (!error && response.statusCode === 200) {
         // get list of tracks from search results
-        var tracks = body.tracks.items;
-        var filteredTracks = [];
+        var filteredTracks = body.tracks.items;
 
         let featureVectorWithinTolerance = function(track:any) {
           //console.log(track.audio_features)
@@ -46,24 +45,23 @@ function search(searchParams:any, token: string) {
           }
         }
 
-        // if user includes audio features use them to filter the search
-        if (searchParams.searchAudioFeatures.every( (element:number) => !isNaN(element)) ) {
-          let trackIds:string[] = tracks.map( (track:any) => track.id );
-          getAudioFeatures(trackIds, token)
-          .then(function(audioFeatures) {
-            audioFeatures.map( function(f:any, index:number) {
-              let featureVector = [f.danceability, f.energy, f.mode, f.acousticness, f.instrumentalness, f.liveness, f.valence] 
-              tracks[index].audio_features = featureVector;
-            });
-            filteredTracks = tracks.filter(featureVectorWithinTolerance);
-            filteredTracks = filteredTracks.filter(trackWithinPopularityRange);
-            resolve(filteredTracks);
+        // get audio features for search results
+        let trackIds:string[] = filteredTracks.map( (track:any) => track.id );
+        getAudioFeatures(trackIds, token)
+        .then(function(audioFeatures) {
+          audioFeatures.map( function(f:any, index:number) {
+            let featureVector = [f.danceability, f.energy, f.mode, f.acousticness, f.instrumentalness, f.liveness, f.valence] 
+            filteredTracks[index].audio_features = featureVector;
           });
-        }
-        // if user doesn't provide audio features don't filter search
-        else {
-          resolve(tracks.filter(trackWithinPopularityRange));
-        }
+          
+          // if user includes audio features use them to filter the search
+          if (searchParams.searchAudioFeatures.every( (element:number) => !isNaN(element)) ) {
+            filteredTracks = filteredTracks.filter(featureVectorWithinTolerance);
+          }
+          // filter by popularity
+          filteredTracks = filteredTracks.filter(trackWithinPopularityRange);
+          resolve(filteredTracks)
+        });
       }
       else {
         reject(error);
