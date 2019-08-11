@@ -29,17 +29,18 @@ function search(searchParams:any, token: string) {
       if (!error && response.statusCode === 200) {
         // get list of tracks from search results
         var tracks = body.tracks.items;
+        var filteredTracks = [];
 
         let featureVectorWithinTolerance = function(track:any) {
+          //console.log(track.audio_features)
           let difference = subtractVectors(track.audio_features, searchParams.searchAudioFeatures);
-          let distance = difference.reduce( (acc:number, cur:number) => acc + Math.pow(cur,2) );
+          let distance = difference.reduce( (acc:number, cur:number) =>  acc + Math.pow(cur,2), 0 );
           if (distance < searchParams.searchAudioFeatureTolerance) {
             return true;
           }
         }
           
         let trackWithinPopularityRange = function(track:any) {
-          //console.log(track.popularity, searchParams.popularityRange[0], searchParams.popularityRange[1]);
           if (track.popularity > searchParams.popularityRange[0] && track.popularity < searchParams.popularityRange[1]) {
             return true;
           }
@@ -54,14 +55,15 @@ function search(searchParams:any, token: string) {
               let featureVector = [f.danceability, f.energy, f.mode, f.acousticness, f.instrumentalness, f.liveness, f.valence] 
               tracks[index].audio_features = featureVector;
             });
+            filteredTracks = tracks.filter(featureVectorWithinTolerance);
+            filteredTracks = filteredTracks.filter(trackWithinPopularityRange);
+            resolve(filteredTracks);
           });
-          var filteredTracks = tracks.filter(featureVectorWithinTolerance) 
         }
         // if user doesn't provide audio features don't filter search
         else {
-          var filteredTracks = tracks.filter(trackWithinPopularityRange);
+          resolve(tracks.filter(trackWithinPopularityRange));
         }
-        resolve(filteredTracks);
       }
       else {
         reject(error);
