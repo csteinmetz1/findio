@@ -25,7 +25,7 @@ import path from 'path';
 import { getToken, checkToken } from './Classes/SpotifyAuthentication';
 import { search, getAudioFeatures } from './Classes/SpotifyConnector';
 import { parseFormData } from './Classes/Helper';
-import { promises } from 'dns';
+import { SearchParameters, TrackObject } from './types';
 
 /* 
     Constants
@@ -42,26 +42,26 @@ app.set('views', path.join(__dirname, '/views'));
 
 app.post('/search', (req, res) => {
 
-  // application requests authorization
-  getToken()
+  getToken()                                                      // application requests authorization
   .then(function(token:string) {
-    let searchParams = parseFormData(req.body);
-    var searches:any[] = [];
-    while (searchParams.offset + 50 <= searchParams.searchDepth) {
+    let searchParams:SearchParameters = parseFormData(req.body);  // Parse search params from form and store into object
+    var searches:Promise<TrackObject[]>[] = [];                   // Create array to hold promises from each search
+    while (searchParams.offset + 50 <= searchParams.depth) {      // Perform number of searches required to get to the provided depth
       searchParams.offset += 50;
       searches.push(search(searchParams, token))
     }
     Promise.all(searches)
-    .then(function(searchResults:any) {
-      let mergedSearchResults = [].concat.apply([], searchResults);
+    .then(function(searchResults) {
+      let mergedSearchResults = searchResults.flat()
       res.render('results.ejs', { results : mergedSearchResults, query : searchParams.query} )  
-    })
-  }, function(error) {
-      console.log(error);
-      res.render('error.ejs', {error: error})
+    }, function(error) {
+      console.log("search() failed", error);
     });
-  }, function(reason) {
-    console.log(reason);
+  }, function(error) {
+      console.log("getToken() failed", error);
+    });
+  }, function(error) {
+    console.log("/search endpoint failed", error);
 });
 
 
