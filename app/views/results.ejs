@@ -46,7 +46,7 @@
       <div class="row">
         <% for (var j=0; (j < 4) && (i+j < results.length); j++) { %>
           <div class="col-md-3 album-cover">
-            <a href="<%- results[i+j].external_urls['spotify'] %>">
+            <a href="<%- results[i+j].external_urls['spotify'] %>" target="_blank">
                 <img class="img-fluid" src="<%- results[i+j].album['images'][0]['url'] %>" 
                 data-toggle="tooltip"  data-placement="right" data-html="true" 
                 title="popularity: <%-results[i+j].popularity %> <br>
