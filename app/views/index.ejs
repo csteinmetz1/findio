@@ -19,6 +19,7 @@
     <script src="/js/compress.js"></script>
     <script src="/js/predict.js"></script>
     <script src="/js/load.js"></script>
+    <script src="/js/nn.js"></script>
 
   </head>
   <body>
@@ -126,42 +127,6 @@
     </div>
   </div>
 
-  <script>
-    loadModel('models/08072019/model.json').then(
-      model =>  {
-        document.getElementById("file").addEventListener("change", function (event) {
-        compress(event).then(
-          image =>  {
-            predict(image, model).then(
-              prediction =>  {
-                console.log(prediction[0])
-                var danceability = document.getElementById("danceability");
-                danceability.value = prediction[0][0].toFixed(2);
-                var energy = document.getElementById("energy");
-                energy.value = prediction[0][1].toFixed(2);
-                var mode = document.getElementById("mode");
-                mode.value = prediction[0][2].toFixed(2);
-                var acousticness = document.getElementById("acousticness");
-                acousticness.value = prediction[0][3].toFixed(2);
-                var instrumentalness = document.getElementById("instrumentalness");
-                instrumentalness.value = prediction[0][4].toFixed(2);
-                var liveness = document.getElementById("liveness");
-                liveness.value = prediction[0][5].toFixed(2);
-                var valence = document.getElementById("valence");
-                valence.value = prediction[0][6].toFixed(2);
-              }, reason => {
-                console.log(reason);
-              });
-          }, reason => {
-            console.log(reason);
-          });
-        });
-      }, reason => {
-        console.log(reason);
-      }
-    );
-  </script>
-
 	<!-- Including Bootstrap JS (with its jQuery dependency) so that dynamic components work -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -169,6 +134,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/bootstrap-slider.min.js" crossorigin="anonymous"></script>
 
   <script src="/js/sliders.js"></script>
+  <script>runNN('models/08072019/model.json')</script>
 
 </body>
 </html>

@@ -16,7 +16,6 @@ function parseFormData(body:any) {
     depth: parseInt(body.depth),
     offset: 0 // init offset to 0
   };
-  console.log(formData)
 	return formData;
 }
 

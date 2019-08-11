@@ -26,8 +26,6 @@ function search(searchParams:any, token: string) {
       json: true
     };
 
-    console.log(options.url)
-
     request.get(options, function(error: any, response: any, body: any) {
       if (!error && response.statusCode === 200) {
 
@@ -55,7 +53,6 @@ function search(searchParams:any, token: string) {
         var filteredTracks:TrackObject[] = [];
         // get audio features for search results
         let trackIds:string[] = searchResultTracks.map( (track:TrackObject) => track.id );
-        console.log(trackIds.length)
         if (trackIds.length < 1) {
           resolve([]);
         }
