@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc",
     "dev": "ts-node-dev --respawn --transpileOnly ./app/app.ts",
-    "prod": "tsc && node ./build/app.js",
+    "public": "cp -r ./app/public ./build/public",
+    "views": "cp -r ./app/views ./build/views",
+    "prod": "tsc && npm run public && npm run views && node ./build/app.js",
     "start": "node build/app.js"
   },
   "repository": {
