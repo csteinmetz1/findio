@@ -55,7 +55,8 @@ app.post('/search', (req, res) => {
       let mergedSearchResults = searchResults.flat()
       res.render('results.ejs', { results : mergedSearchResults, query : searchParams.query} )  
     }, function(error) {
-      console.log("search() failed", error);
+      console.log("one or more search()s failed", error);
+      res.redirect('error.html')
     });
   }, function(error) {
       console.log("getToken() failed", error);

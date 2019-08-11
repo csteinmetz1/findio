@@ -101,7 +101,18 @@ input[type=text] {
 }
 
 .results-container {
-	margin-top: 50px;
+	margin-top: 60px;
+}
+
+.error-container {
+
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	margin-top: 200px;
+  
 }
 
 .track-details {

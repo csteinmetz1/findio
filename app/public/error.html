@@ -30,53 +30,17 @@
           <a class="my-link" href="#" onclick="history.go(-1)"> &larr; Go Back</a>
         </div>
         <div id="mgi-2">
-          <h2 class="results-title" ><%- query %></h2>
         </div>
       </div>
     </div>
 
-  <div class="container-fluid results-container">
-    <!-- i would put something here that checks the length of results if results < 1 then we got no data so show an error -->
-    <% if(results < 1) { %>
-      <div> 
-        No results.
+    <div class="container-fluid" style="position: relative;">
+      <div class="error-container">
+          <h1 style="text-align: center;">404: Invalid Search</h1>
+          <p style="text-align: center;">Sorry there was an error with your search :(</p>
       </div>
-    <% } %>
-    <% for(var i=0; i < results.length; i+= 4) { %>
-      <div class="row">
-        <% for (var j=0; (j < 4) && (i+j < results.length); j++) { %>
-          <div class="col-md-3 album-cover">
-            <a href="<%- results[i+j].external_urls['spotify'] %>">
-                <img class="img-fluid" src="<%- results[i+j].album['images'][0]['url'] %>" 
-                data-toggle="tooltip"  data-placement="right" data-html="true" 
-                title="popularity: <%-results[i+j].popularity %> <br>
-                       danceability: <%- results[i+j].audio_features[0] %> <br>
-                       energy:  <%- results[i+j].audio_features[1] %> <br>
-                       mode:  <%- results[i+j].audio_features[2] %> <br>
-                       acousticness:  <%- results[i+j].audio_features[3] %> <br>
-                       instrumentalness:  <%- results[i+j].audio_features[4] %> <br>
-                       liveness:  <%- results[i+j].audio_features[5] %> <br>
-                       valence:  <%- results[i+j].audio_features[6] %>">
-            </a>
-            <p class="title"><%- results[i+j].name %></p>
-            <p class="artist"><%- results[i+j].artists[0].name %></p>
-          </div>
-        <% } %>
-      </div>
-      <div class="row">
-        <% for (var j=0; (j < 4) && (i+j < results.length); j++) { %>
-          <div class="col-md-3 track-preview">
-          <% if(results[i+j].preview_url ) { %>
-            <audio id="audio<%- results[i+j].id %>">
-              <source src="<%- results[i+j].preview_url %>" type="audio/mpeg">
-            </audio>
-            <button id="button<%- results[i+j].id %>" class="btn btn-outline-light btn-sm btn-block" onclick="playAudio('<%-results[i+j].id %>')" type="button">Play preview</button>
-          <% } %>
-          </div>
-        <% } %>
     </div>
-    <% } %>
-  </div>
+ 
 
   <!-- Including Bootstrap JS (with its jQuery dependency) so that dynamic components work -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
