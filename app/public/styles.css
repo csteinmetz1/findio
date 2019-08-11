@@ -90,6 +90,14 @@ input[type=text] {
 
 .nav-container {
 	background-color: #343a40 !important;
+	position: fixed; /* Set the navbar to fixed position */
+	top: 0; /* Position the navbar at the top of the page */
+	width: 100%; /* Full width */
+	z-index: 9999; /* Place that bitch on top */
+}
+
+.results-container {
+	margin-top: 50px;
 }
 
 .results-title {
