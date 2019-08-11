@@ -27,6 +27,12 @@ import { search, getAudioFeatures } from './Classes/SpotifyConnector';
 import { parseFormData } from './Classes/Helper';
 import { SearchParameters, TrackObject } from './types';
 
+/*
+   Data
+*/
+import { dropdown } from './public/dropdown/dropdown.json'
+
+
 /* 
     Constants
 */
@@ -39,6 +45,10 @@ app.use(express.static(path.join(__dirname, 'public/')));
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
+
+app.get('/', (req, res) => {
+  res.render('index.ejs', {dropdown: dropdown})
+})
 
 app.post('/search', (req, res) => {
 

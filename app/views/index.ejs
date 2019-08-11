@@ -75,59 +75,32 @@
             <div class="col-md-3" data-toggle="tooltip" data-placement="top" title="Select a range of years to filter search results by time of release">
               <h4>Year</h4>
               <p>Start</p>
-              <select name="startYear"> <!-- can you figure out a way to do this dynamically? -->
-                <option value="2019">MMXIX</option>
-                <option value="2018">Old Town Road released</option>
-                <option value="2017">MMXVII</option>
-                <option value="2016">Harambe murdered</option>
-                <option value="2015">MMXV</option>
-                <option value="2014">MMXIV</option>
-                <option value="2013">MMXIII</option>
-                <option value="2012">Gangnam Style released</option>
-                <option value="2011">MMXI</option>
-                <option value="2010">MMX</option>
-                <option value="2009">MMVIX</option>
-                <option value="2008">MMVIII</option>
-                <option value="2007">First recorded Rickroll</option>
-                <option value="2004">Facebook founded</option>
-                <option value="2002">Star Wars Kid video created</option>
-                <option value="2001">Release of movie Shrek</option>
-                <option value="1996">eBay founded</option>
-                <option value="1991">Dissolution of USSR</option>
-                <option value="1986">Chernobyl disaster</option>
-                <option value="1969">Apollo 11 Moon Landing</option>
-                <option value="1986">Chernobyl disaster</option>
-                <option value="1962">Cuban Missile Crisis</option>
-                <option value="1953">Structure of DNA discovered</option>
-                <option value="1929" selected="selected">The Great Depression begins</option>
+              <select name="startYear">
+                <% for(var i=0; i < dropdown.years.length; i++) { %>
+                  <% if (i ==  dropdown.years.length-1) { %>
+                    <option value="<%- Object.keys(dropdown.years[i]) %>" selected="selected"> <%- dropdown.years[i][Object.keys(dropdown.years[i])] %></option>
+                  <% } else { %>
+                    <option value="<%- Object.keys(dropdown.years[i]) %>"> <%- dropdown.years[i][Object.keys(dropdown.years[i])] %></option>
+                  <% } %>
+                <% } %>
               </select>
 
               <p style="margin-top: 10px">End</p>
-              <select name="stopYear"> <!-- can you figure out a way to do this dynamically? -->
-                <option value="2019" selected="selected">MMXIX</option>
-                <option value="2018">MMXVIII</option>
-                <option value="2017">MMXVII</option>
-                <option value="2016">Harambe murdered</option>
-                <option value="2015">MMXV</option>
-                <option value="2014">MMXIV</option>
-                <option value="2013">MMXIII</option>
-                <option value="2012">Gangnam Style released</option>
-                <option value="2011">MMXI</option>
-                <option value="2010">MMX</option>
-                <option value="2009">MMVIX</option>
-                <option value="2008">MMVIII</option>
-                <option value="2007">First recorded Rickroll</option>
-                <option value="2004">Facebook founded</option>
-                <option value="2002">Star Wars Kid video created</option>
-                <option value="2001">Release of movie Shrek</option>
-                <option value="1996">eBay founded</option>
-                <option value="1991">Dissolution of USSR</option>
-                <option value="1986">Chernobyl disaster</option>
-                <option value="1969">Apollo 11 Moon Landing</option>
-                <option value="1986">Chernobyl disaster</option>
-                <option value="1962">Cuban Missile Crisis</option>
-                <option value="1953">Structure of DNA discovered</option>
-                <option value="1929">The Great Depression</option>
+              <select name="stopYear">
+                <% for(var i=0; i < dropdown.years.length; i++) { %>
+                  <% if (i == 0 ) { %>
+                    <option value="<%- Object.keys(dropdown.years[i]) %>" selected="selected"> <%- dropdown.years[i][Object.keys(dropdown.years[i])] %></option>
+                  <% } else { %>
+                    <option value="<%- Object.keys(dropdown.years[i]) %>"> <%- dropdown.years[i][Object.keys(dropdown.years[i])] %></option>
+                  <% } %>
+                <% } %>
+              </select>
+
+              <h4 style="margin-top: 30px">Genre</h4>
+              <select name="genre">
+                <% for(var i=0; i < dropdown.genres.length; i++) { %>
+                  <option value="<%- dropdown.genres[i] %>"> <%- dropdown.genres[i] %></option>
+                <% } %>
               </select>
             </div>
 
@@ -138,7 +111,7 @@
               </div>
               <div style="margin-top: 20px;" data-toggle="tooltip"  data-placement="top" title="Control how many tracks deep to search">
                 <h4>Search Depth</h4>
-                <input id="depth" name="depth" data-slider-id='depth' type="text" data-slider-min="1" data-slider-max="1000" data-slider-step="10" data-slider-value="500"/>
+                <input id="depth" name="depth" data-slider-id='depth' type="text" data-slider-min="1" data-slider-max="1000" data-slider-step="10" data-slider-value="100"/>
               </div>
             </div>
 
