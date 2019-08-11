@@ -18,6 +18,7 @@ function search(searchParams:any, token: string) {
             + searchParams.query.join('%20')
             + '%20year:' + searchParams.yearRange[0]
             + '-' + searchParams.yearRange[1] 
+            +  ( (searchParams.genre == 'Any') ? ''  : '%20genre:%22' + searchParams.genre.join('%20') + '%22') 
             + '&type=track&limit=50'
             + '&offset=' + searchParams.offset,
       headers: {

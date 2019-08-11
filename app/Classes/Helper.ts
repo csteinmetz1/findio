@@ -10,12 +10,14 @@ function parseFormData(body:any) {
 	let formData:SearchParameters = {
     query: body.query.split(' '),
     yearRange: [body.startYear, body.stopYear],
+    genre: body.genre.split(' '),
     popularityRange: body.popularity.split(',').map((val:string) => parseInt(val)),
     audioFeatures: [body.danceability, body.energy, body.mode, body.acousticness, body.instrumentalness, body.liveness, body.valence].map(parseFloat),
     audioFeatureTolerance: parseFloat(body.tolerance),
     depth: parseInt(body.depth),
     offset: 0 // init offset to 0
   };
+  //console.log(formData)
 	return formData;
 }
 

@@ -2,7 +2,8 @@
 
 interface SearchParameters {
 	query: string;
-	yearRange: string[];
+  yearRange: string[];
+  genre: string;
 	popularityRange: number[];
 	audioFeatures: number[];
 	audioFeatureTolerance: number;
