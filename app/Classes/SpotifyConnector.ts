@@ -49,6 +49,12 @@ function search(searchParams:any, token: string) {
           }
         }
 
+        let trackWithinDurationRange = function(track:TrackObject) {
+          if (track.duration_ms > searchParams.durationRange[0] && track.duration_ms < searchParams.durationRange[1]) {
+            return true;
+          }
+        }
+
         // get list of tracks from search results
         var searchResultTracks:TrackObject[] = body.tracks.items;
         var filteredTracks:TrackObject[] = [];
@@ -75,6 +81,9 @@ function search(searchParams:any, token: string) {
             }
             // filter by popularity
             filteredTracks = filteredTracks.filter(trackWithinPopularityRange);
+            // filter by duration
+            filteredTracks = filteredTracks.filter(trackWithinDurationRange);
+
             resolve(filteredTracks)
           }, function(error) {
             console.log(error)
