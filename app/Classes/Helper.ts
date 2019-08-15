@@ -11,6 +11,7 @@ function parseFormData(body:any) {
     query: body.query.split(' '),
     yearRange: [body.startYear, body.stopYear],
     durationRange: body.duration.split(',').map((val:string) => parseInt(val)),
+    explicit: body.explicit,
     genre: body.genre.split(' '),
     popularityRange: body.popularity.split(',').map((val:string) => parseInt(val)),
     audioFeatures: [body.danceability, body.energy, body.mode, body.acousticness, body.instrumentalness, body.liveness, body.valence].map(parseFloat),

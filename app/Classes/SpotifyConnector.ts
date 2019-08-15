@@ -55,14 +55,44 @@ function search(searchParams:any, token: string) {
           }
         }
 
+        let trackWithinExplicitFilter = function(track:TrackObject) {
+          switch(searchParams.explicit) {
+            case 'allow':
+              return true;
+              break;
+            case 'exclude':
+              if (track.explicit) {
+                return false;
+              }
+              else {
+                return true;
+              }
+              break;
+            case 'explicit': 
+              if (track.explicit) {
+                return true;
+              }
+              else {
+                return false;
+              }
+              break;
+            }
+          }
+
         // get list of tracks from search results
         var searchResultTracks:TrackObject[] = body.tracks.items;
         var filteredTracks:TrackObject[] = [];
+        
+        console.log(searchResultTracks[0])
+
         // get audio features for search results
         let trackIds:string[] = searchResultTracks.map( (track:TrackObject) => track.id );
+
+        // if no tracks are found return empty array
         if (trackIds.length < 1) {
           resolve([]);
         }
+        // if we've got tracks let's filter them
         else {
           getAudioFeatures(trackIds, token)
           .then(function(audioFeatures) {
@@ -83,6 +113,8 @@ function search(searchParams:any, token: string) {
             filteredTracks = filteredTracks.filter(trackWithinPopularityRange);
             // filter by duration
             filteredTracks = filteredTracks.filter(trackWithinDurationRange);
+            // filter by explicit
+            filteredTracks = filteredTracks.filter(trackWithinExplicitFilter);
 
             resolve(filteredTracks)
           }, function(error) {
