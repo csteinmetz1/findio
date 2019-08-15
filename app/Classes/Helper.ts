@@ -17,10 +17,11 @@ function parseFormData(body:any) {
     audioFeatures: [body.danceability, body.energy, body.mode, body.acousticness, body.instrumentalness, body.liveness, body.valence].map(parseFloat),
     audioFeatureTolerance: parseFloat(body.tolerance),
     depth: parseInt(body.depth),
+    sort: body.sort,
     offset: 0 // init offset to 0
   };
   //console.log(formData)
 	return formData;
 }
 
-export { subtractVectors, parseFormData }
+export { subtractVectors, sortResults, parseFormData }

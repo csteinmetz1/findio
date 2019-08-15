@@ -7,6 +7,7 @@ import { subtractVectors } from './Helper';
 import { parseDate } from 'tough-cookie';
 import { AudioFeaturesObject, TrackObject } from '../types';
 
+
 /*
 *	
 */
@@ -83,7 +84,7 @@ function search(searchParams:any, token: string) {
         var searchResultTracks:TrackObject[] = body.tracks.items;
         var filteredTracks:TrackObject[] = [];
         
-        console.log(searchResultTracks[0])
+        //console.log(searchResultTracks[0])
 
         // get audio features for search results
         let trackIds:string[] = searchResultTracks.map( (track:TrackObject) => track.id );
@@ -109,6 +110,7 @@ function search(searchParams:any, token: string) {
             if (searchParams.audioFeatures.every( (element:number) => !isNaN(element)) ) {
               filteredTracks = filteredTracks.filter(featureVectorWithinTolerance);
             }
+
             // filter by popularity
             filteredTracks = filteredTracks.filter(trackWithinPopularityRange);
             // filter by duration

@@ -25,6 +25,7 @@ import path from 'path';
 import { getToken, checkToken } from './Classes/SpotifyAuthentication';
 import { search, getAudioFeatures } from './Classes/SpotifyConnector';
 import { parseFormData } from './Classes/Helper';
+import { sortResults } from './Classes/Sort';
 import { SearchParameters, TrackObject } from './types';
 
 /*
@@ -62,7 +63,7 @@ app.post('/search', (req, res) => {
     }
     Promise.all(searches)
     .then(function(searchResults) {
-      let mergedSearchResults = searchResults.flat()
+      let mergedSearchResults = sortResults(searchResults.flat(), searchParams.sort);
       res.render('results.ejs', { results : mergedSearchResults, query : searchParams.query} )  
     }, function(error) {
       console.log("one or more search()s failed", error);

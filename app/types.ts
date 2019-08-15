@@ -1,3 +1,5 @@
+import { release } from "os";
+
 // Our Interface
 
 interface SearchParameters {
@@ -9,7 +11,8 @@ interface SearchParameters {
 	popularityRange: number[];
 	audioFeatures: number[];
 	audioFeatureTolerance: number;
-	depth: number;
+  depth: number;
+  sort: string;
 	offset: number;
 }
 
@@ -56,6 +59,8 @@ interface AlbumObject {
   id: string,
   images: ImageObject[],
   name: string,
+  release_date: string;
+  release_date_precision: string;
   type: "album",
   uri: string
 }

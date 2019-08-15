@@ -116,7 +116,7 @@
             <div class="col-md-4">
               <div data-toggle="tooltip"  data-placement="left" title="Filter search results by track popularity">
                 <h4>Popularity</h4>
-                <input id="popularity" name="popularity" type="text" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="[20,80]"/>
+                <input id="popularity" name="popularity" type="text" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="[0,100]"/>
               </div>
               <div style="margin-top: 20px;" data-toggle="tooltip"  data-placement="left" title="Control how many tracks deep to search">
                 <h4>Search Depth</h4>
@@ -126,6 +126,38 @@
                 <h4>Duration (ms)</h4>
                 <input id="duration" name="duration" data-slider-id='duration' type="text" data-slider-min="30000" data-slider-max="500000" data-slider-step="100" data-slider-value="[30000,180000]"/>
               </div>
+
+              <h4 style="margin-top: 30px">Sort by</h4>
+              <select class="custom-select" name="sort">
+                  <option value="relevance">Relevance</option>
+                  <option value="irrelevance">Irrelevance</option>
+                  <option value="random">Random</option>
+                  <option value="newest">Release: Newest first</option>
+                  <option value="oldest">Release: Oldest first</option>
+                  <option value="poplowtohigh">Popularity: Low to High</option>
+                  <option value="pophightolow">Popularity: High to Low</option>
+                  <option value="durationlowtohigh">Duration: Low to High</option>
+                  <option value="durationhightolow">Duration: High to Low</option>
+                  <optgroup label="Audio Features">
+                    <option value="danceabilitylowtohigh">Danceability: Low to High</option>
+                    <option value="danceabilityhightolow">Danceability: High to Low</option>
+                    <option value="energylowtohigh">Energy: Low to High</option>
+                    <option value="energyhightolow">Energy: High to Low</option>
+                    <option value="modelowtohigh">Mode: Low to High</option>
+                    <option value="modehightolow">Mode: High to Low</option>
+                    <option value="acousticnesslowtohigh">Acousticness: Low to High</option>
+                    <option value="acousticnesshightolow">Acousticness: High to Low</option>
+                    <option value="instrumentalnesslowtohigh">Instrumentalness: Low to High</option>
+                    <option value="instrumentalnesshightolow">Instrumentalness: High to Low</option>
+                    <option value="livenesslowtohigh">Liveness: Low to High</option>
+                    <option value="livenesshightolow">Liveness: High to Low</option>
+                    <option value="valencelowtohigh">Valence: Low to High</option>
+                    <option value="valencehightolow">Valence: High to Low</option>
+                    <option value="nearest">Euclidean distance: Nearest</option>
+                    <option value="furthest">Euclidean distance: Furthest</option>             
+                  </optgroup>
+              </select>
+
             </div>
 
           </div>

@@ -50,13 +50,15 @@
                 <img class="img-fluid" src="<%- results[i+j].album['images'][0]['url'] %>" 
                 data-toggle="tooltip"  data-placement="right" data-html="true" 
                 title="popularity: <%-results[i+j].popularity %> <br>
-                       danceability: <%- results[i+j].audio_features[0] %> <br>
-                       energy:  <%- results[i+j].audio_features[1] %> <br>
-                       mode:  <%- results[i+j].audio_features[2] %> <br>
-                       acousticness:  <%- results[i+j].audio_features[3] %> <br>
-                       instrumentalness:  <%- results[i+j].audio_features[4] %> <br>
-                       liveness:  <%- results[i+j].audio_features[5] %> <br>
-                       valence:  <%- results[i+j].audio_features[6] %>">
+                       release date: <%-results[i+j].album.release_date %> <br>
+                       duration (ms): <%-results[i+j].duration_ms %> <br>
+                       danceability: <%- results[i+j].audio_features[0].toFixed(2) %> <br>
+                       energy:  <%- results[i+j].audio_features[1].toFixed(2) %> <br>
+                       mode:  <%- results[i+j].audio_features[2].toFixed(2) %> <br>
+                       acousticness:  <%- results[i+j].audio_features[3].toFixed(2) %> <br>
+                       instrumentalness:  <%- results[i+j].audio_features[4].toFixed(2) %> <br>
+                       liveness:  <%- results[i+j].audio_features[5].toFixed(2) %> <br>
+                       valence:  <%- results[i+j].audio_features[6].toFixed(2) %>">
             </a>
             <p class="title"><%- results[i+j].name %></p>
             <p class="artist"><%- results[i+j].artists[0].name %></p>
