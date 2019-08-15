@@ -218,3 +218,8 @@ input[type=text] {
 .custom-select option {
 	font-weight:normal;
 }
+
+.slider-handle {
+	background-color: #1db954;
+	background-image: none;
+}
