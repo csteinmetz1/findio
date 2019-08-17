@@ -24,4 +24,4 @@ function parseFormData(body:any) {
 	return formData;
 }
 
-export { subtractVectors, sortResults, parseFormData }
+export { subtractVectors, parseFormData }
