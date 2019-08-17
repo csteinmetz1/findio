@@ -223,3 +223,16 @@ input[type=text] {
 	background-color: #1db954;
 	background-image: none;
 }
+
+.now-playing {
+	height: 70px;
+	background-color: #212529;
+}
+
+.now-playing-cover {
+	display: inline; /* the default for span */
+}
+
+.now-playing-detail {
+	display: inline-block;	
+}

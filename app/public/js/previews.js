@@ -1,4 +1,4 @@
-function playAudio(id) { 
+function playAudio(id, artist, track, cover) { 
 	// pause all currently playing tracks
 	var players = document.getElementsByTagName('audio');
 	for(i=0; i<players.length; i++) {
@@ -21,4 +21,12 @@ function playAudio(id) {
 	  player.pause(); 
 	  button.innerHTML = "Play preview";
 	}
+
+	// update now playing
+	let albumCover = document.getElementById("cover");
+	let artistName = document.getElementById("artist");
+	let trackName  = document.getElementById("track");
+	albumCover.src = cover;
+	artistName.innerHTML = artist;
+	trackName.innerHTML = track;
 } 

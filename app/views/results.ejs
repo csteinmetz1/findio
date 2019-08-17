@@ -50,15 +50,15 @@
                 <img class="img-fluid" src="<%- results[i+j].album['images'][0]['url'] %>" 
                 data-toggle="tooltip"  data-placement="right" data-html="true" 
                 title="popularity: <%-results[i+j].popularity %> <br>
-                       release date: <%-results[i+j].album.release_date %> <br>
-                       duration (ms): <%-results[i+j].duration_ms %> <br>
-                       danceability: <%- results[i+j].audio_features[0].toFixed(2) %> <br>
-                       energy:  <%- results[i+j].audio_features[1].toFixed(2) %> <br>
-                       mode:  <%- results[i+j].audio_features[2].toFixed(2) %> <br>
-                       acousticness:  <%- results[i+j].audio_features[3].toFixed(2) %> <br>
-                       instrumentalness:  <%- results[i+j].audio_features[4].toFixed(2) %> <br>
-                       liveness:  <%- results[i+j].audio_features[5].toFixed(2) %> <br>
-                       valence:  <%- results[i+j].audio_features[6].toFixed(2) %>">
+                      release date: <%-results[i+j].album.release_date %> <br>
+                      duration (ms): <%-results[i+j].duration_ms %> <br>
+                      danceability: <%- results[i+j].audio_features[0].toFixed(2) %> <br>
+                      energy:  <%- results[i+j].audio_features[1].toFixed(2) %> <br>
+                      mode:  <%- results[i+j].audio_features[2].toFixed(2) %> <br>
+                      acousticness:  <%- results[i+j].audio_features[3].toFixed(2) %> <br>
+                      instrumentalness:  <%- results[i+j].audio_features[4].toFixed(2) %> <br>
+                      liveness:  <%- results[i+j].audio_features[5].toFixed(2) %> <br>
+                      valence:  <%- results[i+j].audio_features[6].toFixed(2) %>">
             </a>
             <p class="title"><%- results[i+j].name %></p>
             <p class="artist"><%- results[i+j].artists[0].name %></p>
@@ -72,13 +72,29 @@
             <audio id="audio<%- results[i+j].id %>">
               <source src="<%- results[i+j].preview_url %>" type="audio/mpeg">
             </audio>
-            <button id="button<%- results[i+j].id %>" class="btn btn-outline-light btn-sm btn-block" onclick="playAudio('<%-results[i+j].id %>')" type="button">Play preview</button>
+            <button id="button<%- results[i+j].id %>" class="btn btn-outline-light btn-sm btn-block" onclick="playAudio('<%-results[i+j].id %>', '<%-results[i+j].artists[0].name %>', '<%-results[i+j].name %>', '<%- results[i+j].album.images[0].url %>')" type="button">Play preview</button>
           <% } %>
           </div>
         <% } %>
     </div>
     <% } %>
   </div>
+
+
+  <footer class="fixed-bottom now-playing">
+    <div class="container">
+
+      <div> 
+        <img id="cover" class="img-fluid now-playing-cover" src="#" >
+      </div>
+
+      <div class="now-playing-detail">
+        <p id="title" class="title"></p>
+        <p id="artist" class="artist"></p>
+      </div>
+
+    </div>
+  </footer>
 
   <!-- Including Bootstrap JS (with its jQuery dependency) so that dynamic components work -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
