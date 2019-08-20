@@ -24,21 +24,20 @@
   </head>
   <body>
 
-    <div class="nav-container">
-      <div class="my-grid">
-        <div id="mgi-1">
-          <a class="my-link" href="#" onclick="history.go(-1)"> &larr; Go Back</a>
-        </div>
-        <div id="mgi-2">
-          <h2 class="results-title" ><%- query %></h2>
-        </div>
+    <nav class="navbar bg-dark" >
+      <div class="col-md-2">
+        <a class="my-link" href="#" onclick="history.go(-1)">  ← Go Back </a>
       </div>
-    </div>
+      <div class="col-md-8 text-center">
+        <h2 class="navbar-text"><%- query.join(' ') %></h2>
+      </div>
+      <div class="col-md-2"></div>
+    </nav>
 
-  <div class="container-fluid results-container">
+  <div class="container results-container">
     <!-- i would put something here that checks the length of results if results < 1 then we got no data so show an error -->
     <% if(results < 1) { %>
-      <div> 
+      <div class="text-center"> 
         No results.
       </div>
     <% } %>
