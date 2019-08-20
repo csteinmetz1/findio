@@ -27,7 +27,9 @@
   <div class="container-fluid" id="container-pad">
     <div class="md-form mt-0"> 
       <form method="POST" action="/search">
-        <input class="form-control search-input-form" name="query" type="text" placeholder="Start typing..." aria-label="Search">
+        <div data-toggle="tooltip" data-placement="bottom" title="Enter a query for your search (optional)">
+          <input class="form-control search-input-form" name="query" type="text" placeholder="Start typing..." aria-label="Search">
+        </div>
 
         <div class="container-fluid" style="margin-top: 50px; padding:50px;"> 
           <div class="row">
@@ -68,71 +70,85 @@
               <p style="margin-top: 10px; text-align: center">
                 Tolerance
                 <br>
-                <input id="tolerance" name="tolerance" data-slider-id='tolerance' type="text" data-slider-min="0.0" data-slider-max="5.0" data-slider-step="0.1" data-slider-value="2.0"/>
+                <div data-toggle="tooltip" data-placement="left" title="Control how similar track audio features must be">
+                  <input id="tolerance" name="tolerance" data-slider-id='tolerance' type="text" data-slider-min="0.0" data-slider-max="5.0" data-slider-step="0.1" data-slider-value="2.0"/>
+                </div>
               </p>
             </div>
 
             <div class="col-md-1"></div>
             
-            <div class="col-md-3 mb-4 mb-md-0" data-toggle="tooltip" data-placement="top" title="Select a range of years to filter search results by time of release">
+            <div class="col-md-3 mb-4 mb-md-0">
               <h4>Year</h4>
-              <p>Start</p>
-              <select class="custom-select" name="startYear">
-                <% for(var i=0; i < dropdown.years.length; i++) { %>
-                  <% if (i ==  dropdown.years.length-1) { %>
-                    <option value="<%- Object.keys(dropdown.years[i]) %>" selected="selected"> <%- dropdown.years[i][Object.keys(dropdown.years[i])] %></option>
-                  <% } else { %>
-                    <option value="<%- Object.keys(dropdown.years[i]) %>"> <%- dropdown.years[i][Object.keys(dropdown.years[i])] %></option>
+              <div>
+                <p>Start</p>
+                <select class="custom-select" name="startYear" data-toggle="tooltip" data-placement="left" title="Select a starting year to filter search results by time of release">
+                  <% for(var i=0; i < dropdown.years.length; i++) { %>
+                    <% if (i ==  dropdown.years.length-1) { %>
+                      <option value="<%- Object.keys(dropdown.years[i]) %>" selected="selected"> <%- dropdown.years[i][Object.keys(dropdown.years[i])] %></option>
+                    <% } else { %>
+                      <option value="<%- Object.keys(dropdown.years[i]) %>"> <%- dropdown.years[i][Object.keys(dropdown.years[i])] %></option>
+                    <% } %>
                   <% } %>
-                <% } %>
-              </select>
-
-              <p style="margin-top: 10px">End</p>
-              <select class="custom-select"  name="stopYear">
-                <% for(var i=0; i < dropdown.years.length; i++) { %>
-                  <% if (i == 0 ) { %>
-                    <option value="<%- Object.keys(dropdown.years[i]) %>" selected="selected"> <%- dropdown.years[i][Object.keys(dropdown.years[i])] %></option>
-                  <% } else { %>
-                    <option value="<%- Object.keys(dropdown.years[i]) %>"> <%- dropdown.years[i][Object.keys(dropdown.years[i])] %></option>
+                </select>
+  
+                <p style="margin-top: 10px">End</p>
+                <select class="custom-select"  name="stopYear" data-toggle="tooltip" data-placement="left" title="Select a final year to filter search results by time of release">
+                  <% for(var i=0; i < dropdown.years.length; i++) { %>
+                    <% if (i == 0 ) { %>
+                      <option value="<%- Object.keys(dropdown.years[i]) %>" selected="selected"> <%- dropdown.years[i][Object.keys(dropdown.years[i])] %></option>
+                    <% } else { %>
+                      <option value="<%- Object.keys(dropdown.years[i]) %>"> <%- dropdown.years[i][Object.keys(dropdown.years[i])] %></option>
+                    <% } %>
                   <% } %>
-                <% } %>
-              </select>
+                </select>
+              </div>
+              
+              <div>
+                <h4 style="margin-top: 30px">Genre</h4>
+                <select class="custom-select" name="genre" data-toggle="tooltip" data-placement="left" title="Only search tracks with a specific genre">
+                  <% for(var i=0; i < dropdown.genres.length; i++) { %>
+                    <option value="<%- dropdown.genres[i] %>"> <%- dropdown.genres[i] %></option>
+                  <% } %>
+                </select>
+              </div>
 
-              <h4 style="margin-top: 30px">Genre</h4>
-              <select class="custom-select" name="genre">
-                <% for(var i=0; i < dropdown.genres.length; i++) { %>
-                  <option value="<%- dropdown.genres[i] %>"> <%- dropdown.genres[i] %></option>
-                <% } %>
-              </select>
-
-              <h4 style="margin-top: 30px">Explicit</h4>
-              <select class="custom-select" name="explicit">
-                  <option value="allow">Allow</option>
-                  <option value="exclude">Exclude</option>
-                  <option value="explicit">Explicit only</option>
-              </select>
+              <div>
+                <h4 style="margin-top: 30px">Explicit</h4>
+                <select class="custom-select" name="explicit" data-toggle="tooltip" data-placement="left" title="Filter tracks based on its explicit content">
+                    <option value="allow">Allow</option>
+                    <option value="exclude">Exclude</option>
+                    <option value="explicit">Explicit only</option>
+                </select>
+              </div>
 
             </div>
 
             <div class="col-md-1"></div>
 
-            <div class="col-md-3 mb-4 mb-md-0" >
-              <div data-toggle="tooltip" data-placement="right" title="Filter search results by track popularity">
+            <div class="col-md-3 mb-4 mb-md-0">
+              <div>
                 <h4>Popularity</h4>
-                <input id="popularity" name="popularity" type="text" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="[0,100]"/>
+                <div data-toggle="tooltip" data-placement="right" title="Filter search results by track popularity">
+                  <input id="popularity" name="popularity" type="text" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="[0,100]"/>
+                </div>
               </div>
-              <div style="margin-top: 20px;" data-toggle="tooltip"  data-placement="right" title="Control how many tracks deep to search">
+              <div style="margin-top: 30px;">
                 <h4>Search Depth</h4>
-                <input id="depth" name="depth" data-slider-id='depth' type="text" data-slider-min="1" data-slider-max="1000" data-slider-step="10" data-slider-value="100"/>
+                <div data-toggle="tooltip"  data-placement="right" title="Control how many tracks deep to search">
+                  <input id="depth" name="depth" data-slider-id='depth' type="text" data-slider-min="1" data-slider-max="1000" data-slider-step="10" data-slider-value="100"/>
+                </div>
               </div>
-              <div style="margin-top: 20px;" data-toggle="tooltip"  data-placement="right" title="Filter search results by track length">
+              <div style="margin-top: 30px;">
                 <h4>Duration (ms)</h4>
-                <input id="duration" name="duration" data-slider-id='duration' type="text" data-slider-min="30000" data-slider-max="500000" data-slider-step="100" data-slider-value="[30000,180000]"/>
+                <div data-toggle="tooltip"  data-placement="right" title="Filter search results by track length">
+                  <input id="duration" name="duration" data-slider-id='duration' type="text" data-slider-min="30000" data-slider-max="500000" data-slider-step="100" data-slider-value="[30000,180000]"/>
+                </div>
               </div>
 
-              <div style="margin-top: 30px" data-toggle="tooltip"  data-placement="right" title="Determine how to sort the search results">
+              <div style="margin-top: 30px">
                 <h4 >Sort by</h4>
-                <select class="custom-select" name="sort">
+                <select class="custom-select" name="sort"  data-toggle="tooltip"  data-placement="right" title="Determine how to sort the search results">
                   <option value="relevance">Relevance</option>
                   <option value="irrelevance">Irrelevance</option>
                   <option value="random">Random</option>
