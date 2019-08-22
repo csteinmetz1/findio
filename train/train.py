@@ -25,9 +25,9 @@ model.summary()
 #sys.exit(0)
 
 # start training
-model.fit(x_train[:100], y_train[:100],
-        	epochs=50,
-        	validation_data=(x_val[:100], y_val[:100]),
+model.fit(x_train, y_train,
+        	epochs=1,
+        	validation_data=(x_val, y_val),
 			shuffle="batch")
 
 # evaluate
@@ -37,9 +37,9 @@ print("Test error:", res)
 print(model.predict(x_test[:2]), y_test[:2])
 
 # save results for Python and JS
-modeldir = 'models/08072019/'
+modeldir = 'models/08202019/'
 if not os.path.isdir(modeldir):	
 	os.makedirs(modeldir)
 
-model.save_weights(os.path.join(modeldir, 'python08072019.h5')) # always save your weights after training or during training
+model.save_weights(os.path.join(modeldir, 'python08202019.h5')) # always save your weights after training or during training
 tfjs.converters.save_keras_model(model, modeldir)
