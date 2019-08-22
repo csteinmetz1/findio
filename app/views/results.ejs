@@ -36,7 +36,7 @@
 
   <div class="container results-container">
     <!-- i would put something here that checks the length of results if results < 1 then we got no data so show an error -->
-    <% if(results < 1) { %>
+    <% if (results < 1) { %>
       <div class="text-center"> 
         No results.
       </div>
@@ -46,18 +46,34 @@
         <% for (var j=0; (j < 4) && (i+j < results.length); j++) { %>
           <div class="col-md-3 album-cover">
             <a href="<%- results[i+j].external_urls['spotify'] %>" target="_blank">
-                <img class="img-fluid" src="<%- results[i+j].album['images'][0]['url'] %>" 
-                data-toggle="tooltip"  data-placement="right" data-html="true" 
-                title="popularity: <%-results[i+j].popularity %> <br>
-                      release date: <%-results[i+j].album.release_date %> <br>
-                      duration (ms): <%-results[i+j].duration_ms %> <br>
-                      danceability: <%- results[i+j].audio_features[0].toFixed(2) %> <br>
-                      energy:  <%- results[i+j].audio_features[1].toFixed(2) %> <br>
-                      mode:  <%- results[i+j].audio_features[2].toFixed(2) %> <br>
-                      acousticness:  <%- results[i+j].audio_features[3].toFixed(2) %> <br>
-                      instrumentalness:  <%- results[i+j].audio_features[4].toFixed(2) %> <br>
-                      liveness:  <%- results[i+j].audio_features[5].toFixed(2) %> <br>
-                      valence:  <%- results[i+j].audio_features[6].toFixed(2) %>">
+                <% console.log(results[i+j].album['images'].length > 0 ) %>
+                <% if ( results[i+j].album['images'].length > 0) { %>
+                  <img class="img-fluid" src="<%- results[i+j].album['images'][0]['url'] %>" 
+                  data-toggle="tooltip"  data-placement="right" data-html="true" 
+                  title="popularity: <%-results[i+j].popularity %> <br>
+                        release date: <%-results[i+j].album.release_date %> <br>
+                        duration (ms): <%-results[i+j].duration_ms %> <br>
+                        danceability: <%- results[i+j].audio_features[0].toFixed(2) %> <br>
+                        energy:  <%- results[i+j].audio_features[1].toFixed(2) %> <br>
+                        mode:  <%- results[i+j].audio_features[2].toFixed(2) %> <br>
+                        acousticness:  <%- results[i+j].audio_features[3].toFixed(2) %> <br>
+                        instrumentalness:  <%- results[i+j].audio_features[4].toFixed(2) %> <br>
+                        liveness:  <%- results[i+j].audio_features[5].toFixed(2) %> <br>
+                        valence:  <%- results[i+j].audio_features[6].toFixed(2) %>">
+                <% } else { %>
+                  <img class="img-fluid" src="http://bobjames.com/wp-content/themes/soundcheck/images/default-album-artwork.png" 
+                  data-toggle="tooltip"  data-placement="right" data-html="true" 
+                  title="popularity: <%-results[i+j].popularity %> <br>
+                        release date: <%-results[i+j].album.release_date %> <br>
+                        duration (ms): <%-results[i+j].duration_ms %> <br>
+                        danceability: <%- results[i+j].audio_features[0].toFixed(2) %> <br>
+                        energy:  <%- results[i+j].audio_features[1].toFixed(2) %> <br>
+                        mode:  <%- results[i+j].audio_features[2].toFixed(2) %> <br>
+                        acousticness:  <%- results[i+j].audio_features[3].toFixed(2) %> <br>
+                        instrumentalness:  <%- results[i+j].audio_features[4].toFixed(2) %> <br>
+                        liveness:  <%- results[i+j].audio_features[5].toFixed(2) %> <br>
+                        valence:  <%- results[i+j].audio_features[6].toFixed(2) %>">
+                <% } %>
             </a>
             <p class="title"><%- results[i+j].name %></p>
             <p class="artist"><%- results[i+j].artists[0].name %></p>
