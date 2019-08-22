@@ -224,7 +224,7 @@ input[type=text] {
 }
 
 .now-playing {
-	height: 70px;
+	height: 80px;
 	background-color: #212529;
 }
 
@@ -233,7 +233,7 @@ input[type=text] {
 }
 
 .now-playing-detail {
-	display: inline-block;	
+	display: inline;	
 }
 
 .tooltip-inner {
@@ -277,3 +277,15 @@ input[type=text] {
 .slider.slider-horizontal{
 	width:100%; /* sample value - set it as you like*/
   }
+
+.m-fadeOut {
+visibility: hidden;
+opacity: 0;
+transition: visibility 0s linear 300ms, opacity 300ms;
+}
+
+.m-fadeIn {
+visibility: visible;
+opacity: 1;
+transition: visibility 0s linear 0s, opacity 300ms;
+}

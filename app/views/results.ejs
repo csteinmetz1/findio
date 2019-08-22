@@ -71,7 +71,10 @@
             <audio id="audio<%- results[i+j].id %>">
               <source src="<%- results[i+j].preview_url %>" type="audio/mpeg">
             </audio>
-            <button id="button<%- results[i+j].id %>" class="btn btn-outline-light btn-sm btn-block" onclick="playAudio('<%-results[i+j].id %>', '<%-results[i+j].artists[0].name %>', '<%-results[i+j].name %>', '<%- results[i+j].album.images[0].url %>')" type="button">Play preview</button>
+            <!--- The way this is working right now is pretty gross. I think we should return a JSON blob in the browser 
+                  along with the search that we can access from the JS code. That we can just the the track id as a lookup
+                  and get all the track details to dynamically display on the now playing bar -->
+            <button id="button<%- results[i+j].id %>" class="btn btn-outline-light btn-sm btn-block" onclick="playAudio(`<%-results[i+j].id %>` , `<%-results[i+j].artists[0].name %>`, `<%-results[i+j].name %>`, `<%- results[i+j].album.images[0].url %>`)" type="button">Play preview</button>
           <% } %>
           </div>
         <% } %>
@@ -80,20 +83,23 @@
   </div>
 
 
-  <footer class="fixed-bottom now-playing">
-    <div class="container">
-
-      <div> 
-        <img id="cover" class="img-fluid now-playing-cover" src="#" >
+  <footer id="footer" class="m-fadeOut fixed-bottom now-playing">
+    <div class="container" style="margin: 10px;">
+      <div class="row">
+        <div class="col-md-1"> 
+          <img id="cover" class="img-fluid now-playing-cover" style="height:60px;" src="#">
+        </div>
+        <div class="col-md-6 now-playing-detail">
+          <p id="track" class="title"></p>
+          <p id="artist" class="artist"></p>
+        </div>
+        <div class="col-md-2 now-playing-detail">
+          <p class="title"><a id="trackUrl" href="#">View on Spotify</a></p>
+        </div>
       </div>
-
-      <div class="now-playing-detail">
-        <p id="title" class="title"></p>
-        <p id="artist" class="artist"></p>
-      </div>
-
     </div>
   </footer>
+  <p></p>
 
   <!-- Including Bootstrap JS (with its jQuery dependency) so that dynamic components work -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
