@@ -3,6 +3,7 @@ body {
 	background: #121212; 
 	font-family: proxima-nova,sans-serif;
 	font-style: normal;
+	padding-bottom: 120px;
 }
 
 #container-pad {
@@ -24,6 +25,10 @@ body {
 
 .album-cover {
 	padding: 30px 30px 0px 30px;
+}
+
+.cover:hover .overlay {
+	opacity: 1;
 }
 
 .grey-light {
@@ -224,12 +229,18 @@ input[type=text] {
 }
 
 .now-playing {
-	height: 80px;
+	height: 110px;
 	background-color: #212529;
 }
 
 .now-playing-cover {
+	height: 80px;
 	display: inline; /* the default for span */
+	padding-right: 15px;
+}
+
+.now-playing-cover:hover {
+	opacity: 0.5;
 }
 
 .now-playing-detail {
