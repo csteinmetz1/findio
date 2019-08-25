@@ -5,15 +5,15 @@ import * as request from 'request';
 import { checkToken } from './SpotifyAuthentication';
 import { subtractVectors } from './Helper';
 import { parseDate } from 'tough-cookie';
-import { AudioFeaturesObject, TrackObject } from '../types';
-
+import { AudioFeaturesObject, TrackObject, SearchResults, SearchDetails } from '../types';
 
 /*
 *	
 */
 function search(searchParams:any, token: string) {
-  return new Promise<TrackObject[]>(function (resolve, reject) {
+  return new Promise<SearchResults>(function (resolve, reject) {
 
+    // build the API search url
     const options = {
       url: 'https://api.spotify.com/v1/search/?q=' 
             + searchParams.query.join('%20')
@@ -82,16 +82,30 @@ function search(searchParams:any, token: string) {
 
         // get list of tracks from search results
         var searchResultTracks:TrackObject[] = body.tracks.items;
-        var filteredTracks:TrackObject[] = [];
-        
-        //console.log(searchResultTracks[0])
 
-        // get audio features for search results
+        // init filtered tracks array and details on the search
+        var filteredTracks:TrackObject[] = [];
+        var searchDetails:SearchDetails = {
+          totalTracks: searchResultTracks.length,
+          filteredTracks: searchResultTracks.length,
+          filteredByAudioFeatures: 0,
+          filteredByPopularity: 0,
+          filteredByDuration: 0,
+          filteredByExplicit: 0
+        }
+        
+        // this is the object we will return (with all details)
+        var searchResults:SearchResults = {
+          trackObjects: filteredTracks,
+          searchDetails: searchDetails
+        }
+        
+        // get track ids for each found track to get audio features
         let trackIds:string[] = searchResultTracks.map( (track:TrackObject) => track.id );
 
-        // if no tracks are found return empty array
+        // if no tracks are found return SearchResults object with empty array
         if (trackIds.length < 1) {
-          resolve([]);
+          resolve(searchResults);
         }
         // if we've got tracks let's filter them
         else {
@@ -99,26 +113,40 @@ function search(searchParams:any, token: string) {
           .then(function(audioFeatures) {
             audioFeatures.filter( (f:AudioFeaturesObject) => f != null ).map( function(f:AudioFeaturesObject, index:number) {
 
-              let featureVector = [f.danceability, f.energy, f.mode, f.acousticness, f.instrumentalness, f.liveness, f.valence] 
+              let featureVector = [f.danceability, f.energy, f.mode, f.acousticness, f.instrumentalness, f.liveness, f.valence];
               let tempTracks = searchResultTracks[index];
               
               tempTracks.audio_features = featureVector;
-              filteredTracks.push(tempTracks);
+              searchResults.trackObjects.push(tempTracks);
             });
             
             // if user includes audio features use them to filter the search
             if (searchParams.audioFeatures.every( (element:number) => !isNaN(element)) ) {
-              filteredTracks = filteredTracks.filter(featureVectorWithinTolerance);
+              searchResults.trackObjects = searchResults.trackObjects.filter(featureVectorWithinTolerance);
             }
+            // calculate how many tracks were filtered out by audio features
+            searchResults.searchDetails.filteredByAudioFeatures = (searchResults.searchDetails.filteredTracks - searchResults.trackObjects.length);
+            searchResults.searchDetails.filteredTracks = searchResults.trackObjects.length;
 
             // filter by popularity
-            filteredTracks = filteredTracks.filter(trackWithinPopularityRange);
-            // filter by duration
-            filteredTracks = filteredTracks.filter(trackWithinDurationRange);
-            // filter by explicit
-            filteredTracks = filteredTracks.filter(trackWithinExplicitFilter);
+            searchResults.trackObjects = searchResults.trackObjects.filter(trackWithinPopularityRange);
+            // calculate how many tracks were filtered out by popularity
+            searchResults.searchDetails.filteredByPopularity = (searchResults.searchDetails.filteredTracks - searchResults.trackObjects.length);
+            searchResults.searchDetails.filteredTracks = searchResults.trackObjects.length;
 
-            resolve(filteredTracks)
+            // filter by duration
+            searchResults.trackObjects = searchResults.trackObjects.filter(trackWithinDurationRange);
+            // calculate how many tracks were filtered out by duration
+            searchResults.searchDetails.filteredByDuration = (searchResults.searchDetails.filteredTracks - searchResults.trackObjects.length);
+            searchResults.searchDetails.filteredTracks = searchResults.trackObjects.length;
+
+            // filter by explicit content
+            searchResults.trackObjects = searchResults.trackObjects.filter(trackWithinExplicitFilter);
+            // calculate how many tracks were filtered out by explicit content
+            searchResults.searchDetails.filteredByExplicit = (searchResults.searchDetails.filteredTracks - searchResults.trackObjects.length);
+            searchResults.searchDetails.filteredTracks = searchResults.trackObjects.length;
+
+            resolve(searchResults);
           }, function(error) {
             console.log(error)
             reject(error);

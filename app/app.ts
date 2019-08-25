@@ -26,7 +26,7 @@ import { getToken, checkToken } from './Classes/SpotifyAuthentication';
 import { search, getAudioFeatures } from './Classes/SpotifyConnector';
 import { parseFormData } from './Classes/Helper';
 import { sortResults } from './Classes/Sort';
-import { SearchParameters, TrackObject } from './types';
+import { SearchParameters, SearchResults, TrackObject } from './types';
 
 /*
    Data
@@ -53,18 +53,26 @@ app.get('/', (req, res) => {
 
 app.post('/search', (req, res) => {
 
-  getToken()                                                      // application requests authorization
+  getToken()                                                      // Application requests authorization
   .then(function(token:string) {
     let searchParams:SearchParameters = parseFormData(req.body);  // Parse search params from form and store into object
-    var searches:Promise<TrackObject[]>[] = [];                   // Create array to hold promises from each search
+    var searches:Promise<SearchResults>[] = [];                   // Create array to hold promises from each search
     while (searchParams.offset + 50 <= searchParams.depth) {      // Perform number of searches required to get to the provided depth
       searchParams.offset += 50;
-      searches.push(search(searchParams, token))
+      searches.push(search(searchParams, token))                  // Save each search results array into an array of promises
     }
     Promise.all(searches)
     .then(function(searchResults) {
-      let mergedSearchResults = sortResults(searchResults.flat(), searchParams.sort);
-      res.render('results.ejs', { results : mergedSearchResults, query : searchParams.query} )  
+      // extract the array of track results for each search
+      let mergedSearchResults = searchResults.map( function(searchResults:SearchResults) {
+        return searchResults.trackObjects
+      })
+
+      // flatten these boys out
+      let flatMergedSearchResults = mergedSearchResults.flat()
+
+      // = sortResults(searchResults.trackObjects.flat(), searchParams.sort);
+      res.render('results.ejs', { results : flatMergedSearchResults, query : searchParams.query} )  
     }, function(error) {
       console.log("one or more search()s failed", error);
       res.redirect('error.html')

@@ -108,5 +108,18 @@ interface AudioFeaturesObject {
   valence: number
 }
 
+interface SearchDetails {
+  totalTracks: number,
+  filteredTracks: number,
+  filteredByAudioFeatures: number,
+  filteredByPopularity: number,
+  filteredByDuration: number,
+  filteredByExplicit: number
+}
 
-export { SearchParameters, TrackObject, AudioFeaturesObject }
+interface SearchResults {
+  trackObjects: TrackObject[],
+  searchDetails: SearchDetails
+}
+
+export { SearchParameters, SearchResults, SearchDetails, TrackObject, AudioFeaturesObject }
