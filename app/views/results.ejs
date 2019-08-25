@@ -35,6 +35,14 @@
     </nav>
 
   <div class="container results-container">
+    <div>
+      <p>We searched a total of <%- details.totalTracks %> tracks </p>
+      <p><%- details.filteredByAudioFeatures %> track(s) were filtered out by audio features</p>
+      <p><%- details.filteredByPopularity %> track(s) were filtered out by popularity</p>
+      <p><%- details.filteredByDuration %> track(s) were filtered out by duration</p>
+      <p><%- details.filteredByExplicit %> track(s) were filtered out by their explicit content</p> 
+      <p>This left a total of <%- details.filteredTracks %> track(s)</p>
+    </div>
     <% if (results < 1) { %>
       <div class="text-center"> 
         No results.
@@ -45,7 +53,6 @@
         <% for (var j=0; (j < 4) && (i+j < results.length); j++) { %>
           <div class="col-md-3 album-cover">
             <a href="<%- results[i+j].external_urls['spotify'] %>" target="_blank">
-                <% console.log(results[i+j].album['images'].length > 0 ) %>
                 <% if ( results[i+j].album['images'].length > 0) { %>
                   <img class="img-fluid" src="<%- results[i+j].album['images'][0]['url'] %>" 
                   data-toggle="tooltip"  data-placement="right" data-html="true" 
@@ -96,7 +103,6 @@
     </div>
     <% } %>
   </div>
-
 
   <footer id="footer" class="m-fadeOut fixed-bottom now-playing">
     <div class="container" style="margin: 15px;">

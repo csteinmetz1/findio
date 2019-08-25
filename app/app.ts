@@ -24,7 +24,7 @@ import path from 'path';
 */
 import { getToken, checkToken } from './Classes/SpotifyAuthentication';
 import { search, getAudioFeatures } from './Classes/SpotifyConnector';
-import { parseFormData } from './Classes/Helper';
+import { parseFormData, sumSearchDetails } from './Classes/Helper';
 import { sortResults } from './Classes/Sort';
 import { SearchParameters, SearchResults, TrackObject } from './types';
 
@@ -64,15 +64,17 @@ app.post('/search', (req, res) => {
     Promise.all(searches)
     .then(function(searchResults) {
       // extract the array of track results for each search
-      let mergedSearchResults = searchResults.map( function(searchResults:SearchResults) {
-        return searchResults.trackObjects
-      })
+      let mergedTrackObjects = searchResults.map((searchResults:SearchResults) => searchResults.trackObjects);
+      // flatten these boys out and then sort them
+      let flatMergedTrackObjects = sortResults(mergedTrackObjects.flat(), searchParams.sort);
 
-      // flatten these boys out
-      let flatMergedSearchResults = mergedSearchResults.flat()
+      // extract the array of track results for each search
+      let mergedSearchDetails = searchResults.map((searchResults:SearchResults) => searchResults.searchDetails);
+      let summarySearchDetails = sumSearchDetails(mergedSearchDetails);
 
-      // = sortResults(searchResults.trackObjects.flat(), searchParams.sort);
-      res.render('results.ejs', { results : flatMergedSearchResults, query : searchParams.query} )  
+      // send data to the template
+      res.render('results.ejs', { details:summarySearchDetails, results:flatMergedTrackObjects, query:searchParams.query});
+
     }, function(error) {
       console.log("one or more search()s failed", error);
       res.redirect('error.html')

@@ -1,4 +1,4 @@
-import { SearchParameters } from '../types';
+import { SearchParameters, SearchDetails } from '../types';
 
 function subtractVectors(a:number[], b:number[]) {
 	return a.map(function(element:number, index:number){
@@ -24,4 +24,15 @@ function parseFormData(body:any) {
 	return formData;
 }
 
-export { subtractVectors, parseFormData }
+function sumSearchDetails(searchDetails:SearchDetails[]) {
+  return searchDetails.reduce((acc:SearchDetails, cur:SearchDetails) => {
+    for (var key in cur) {
+      if (cur.hasOwnProperty(key) && acc.hasOwnProperty(key)) {
+        acc[key] += cur[key];
+      }
+    }
+    return acc;
+  });
+}
+
+export { subtractVectors, parseFormData, sumSearchDetails }

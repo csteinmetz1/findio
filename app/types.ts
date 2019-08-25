@@ -115,6 +115,7 @@ interface SearchDetails {
   filteredByPopularity: number,
   filteredByDuration: number,
   filteredByExplicit: number
+  [key: string]: number // not sure exactly what this does
 }
 
 interface SearchResults {
