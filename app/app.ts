@@ -38,7 +38,7 @@ import { dropdown } from './public/dropdown/dropdown.json'
 
 if (process.env.NODE_ENV == 'production') {
   console.log('Running in PROD');
-  process.env.PWD = __dirname;//process.cwd();
+  process.env.PWD = process.cwd();
 }
 else {
   console.log('Running in DEV');
