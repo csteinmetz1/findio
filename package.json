@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "The Spotify search you don't need and never wanted",
   "main": "index.js",
+  "engines": {
+    "node": "12.2.0",
+    "npm": "6.9.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc",
