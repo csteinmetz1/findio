@@ -36,18 +36,22 @@ import { SearchParameters, SearchResults, TrackObject } from './types';
 */
 import { dropdown } from './public/dropdown/dropdown.json'
 
-
-/* 
-    Constants
-*/
+if (process.env.NODE_ENV == 'production') {
+  console.log('Running in PROD');
+  process.env.PWD = process.cwd();
+}
+else {
+  console.log('Running in DEV');
+  process.env.PWD = __dirname;
+}
 
 // Create a new express application instance
 const app = express();
-app.use(express.static(path.resolve(__dirname, '../public')));
-console.log('Serving static files from', path.resolve(__dirname, '../public'));
+app.use(express.static(path.join(process.env.PWD, 'public')));
+console.log('Serving static files from', path.join(process.env.PWD, 'public'));
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(process.env.PWD, 'views'));
 
 app.get('/', (req, res) => {
   res.render('index.ejs', {dropdown: dropdown})
@@ -90,5 +94,5 @@ app.post('/search', (req, res) => {
 
 
 app.listen(process.env.PORT || 8000, function () {
-  console.log('Listening on port ', process.env.PORT);
+  console.log('Listening on port', process.env.PORT);
 });
