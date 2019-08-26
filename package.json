@@ -14,7 +14,7 @@
     "public": "cp -r ./app/public/ ./build/public/",
     "views": "cp -r ./app/views ./build/views",
     "models" : "./models.sh",
-    "build": "tsc && npm run public && npm run views && node ./build/app.js",
+    "build": "tsc && npm run public && npm run views",
     "start": "node build/app.js"
   },
   "repository": {
