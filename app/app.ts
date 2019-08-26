@@ -40,8 +40,6 @@ import { dropdown } from './public/dropdown/dropdown.json'
 /* 
     Constants
 */
-//port used for the server
-const PORT = 8000;
 
 // Create a new express application instance
 const app = express();
@@ -90,6 +88,6 @@ app.post('/search', (req, res) => {
 });
 
 
-app.listen(PORT, function () {
-  console.log('Listening on port ', PORT);
+app.listen(process.env.PORT || 8000, function () {
+  console.log('Listening on port ', process.env.PORT);
 });
