@@ -9,6 +9,7 @@
     "dev": "ts-node-dev --respawn --transpileOnly ./app/app.ts",
     "public": "cp -r ./app/public ./build/public",
     "views": "cp -r ./app/views ./build/views",
+    "models" : " ",
     "prod": "tsc && npm run public && npm run views && node ./build/app.js",
     "start": "node build/app.js"
   },
@@ -26,6 +27,7 @@
     "@types/ejs": "^2.6.3",
     "@types/express": "^4.17.0",
     "@types/request": "^2.48.2",
+    "dotenv": "^8.1.0",
     "ejs": "^2.6.2",
     "express": "^4.17.1",
     "request": "^2.88.0",

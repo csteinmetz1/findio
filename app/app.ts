@@ -19,6 +19,9 @@
 import express from 'express'; // Express web server framework
 import * as request from 'request'; // used for http requests
 import path from 'path';
+
+require('dotenv').config();
+
 /*
     Local Imports
 */

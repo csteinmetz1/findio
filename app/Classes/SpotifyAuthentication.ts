@@ -9,7 +9,7 @@ import * as request from 'request';
 const authOptions = {
   uri: 'https://accounts.spotify.com/api/token',
   headers: {
-    Authorization: 'Basic ' + (Buffer.from(keys.client_id + ':' + keys.client_secret).toString('base64'))
+    Authorization: 'Basic ' + (Buffer.from(process.env.CLIENT_ID + ':' + process.env.CLIENT_SECRET).toString('base64'))
   },
   form: {
     grant_type: 'client_credentials'
