@@ -110,7 +110,7 @@ interface AudioFeaturesObject {
 
 interface SearchDetails {
   totalTracks: number,
-  filteredTracks: number,
+  totalFilteredTracks: number,
   filteredByAudioFeatures: number,
   filteredByPopularity: number,
   filteredByDuration: number,

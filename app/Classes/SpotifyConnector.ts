@@ -45,7 +45,7 @@ function search(searchParams:any, token: string) {
         }
           
         let trackWithinPopularityRange = function(track:TrackObject) {
-          if (track.popularity > searchParams.popularityRange[0] && track.popularity < searchParams.popularityRange[1]) {
+          if (track.popularity >= searchParams.popularityRange[0] && track.popularity <= searchParams.popularityRange[1]) {
             return true;
           }
         }
@@ -87,7 +87,7 @@ function search(searchParams:any, token: string) {
         var filteredTracks:TrackObject[] = [];
         var searchDetails:SearchDetails = {
           totalTracks: searchResultTracks.length,
-          filteredTracks: searchResultTracks.length,
+          totalFilteredTracks: searchResultTracks.length,
           filteredByAudioFeatures: 0,
           filteredByPopularity: 0,
           filteredByDuration: 0,
@@ -125,26 +125,26 @@ function search(searchParams:any, token: string) {
               searchResults.trackObjects = searchResults.trackObjects.filter(featureVectorWithinTolerance);
             }
             // calculate how many tracks were filtered out by audio features
-            searchResults.searchDetails.filteredByAudioFeatures = (searchResults.searchDetails.filteredTracks - searchResults.trackObjects.length);
-            searchResults.searchDetails.filteredTracks = searchResults.trackObjects.length;
+            searchResults.searchDetails.filteredByAudioFeatures = (searchResults.searchDetails.totalFilteredTracks - searchResults.trackObjects.length);
+            searchResults.searchDetails.totalFilteredTracks = searchResults.trackObjects.length;
 
             // filter by popularity
             searchResults.trackObjects = searchResults.trackObjects.filter(trackWithinPopularityRange);
             // calculate how many tracks were filtered out by popularity
-            searchResults.searchDetails.filteredByPopularity = (searchResults.searchDetails.filteredTracks - searchResults.trackObjects.length);
-            searchResults.searchDetails.filteredTracks = searchResults.trackObjects.length;
+            searchResults.searchDetails.filteredByPopularity = (searchResults.searchDetails.totalFilteredTracks - searchResults.trackObjects.length);
+            searchResults.searchDetails.totalFilteredTracks = searchResults.trackObjects.length;
 
             // filter by duration
             searchResults.trackObjects = searchResults.trackObjects.filter(trackWithinDurationRange);
             // calculate how many tracks were filtered out by duration
-            searchResults.searchDetails.filteredByDuration = (searchResults.searchDetails.filteredTracks - searchResults.trackObjects.length);
-            searchResults.searchDetails.filteredTracks = searchResults.trackObjects.length;
+            searchResults.searchDetails.filteredByDuration = (searchResults.searchDetails.totalFilteredTracks - searchResults.trackObjects.length);
+            searchResults.searchDetails.totalFilteredTracks = searchResults.trackObjects.length;
 
             // filter by explicit content
             searchResults.trackObjects = searchResults.trackObjects.filter(trackWithinExplicitFilter);
             // calculate how many tracks were filtered out by explicit content
-            searchResults.searchDetails.filteredByExplicit = (searchResults.searchDetails.filteredTracks - searchResults.trackObjects.length);
-            searchResults.searchDetails.filteredTracks = searchResults.trackObjects.length;
+            searchResults.searchDetails.filteredByExplicit = (searchResults.searchDetails.totalFilteredTracks - searchResults.trackObjects.length);
+            searchResults.searchDetails.totalFilteredTracks = searchResults.trackObjects.length;
 
             resolve(searchResults);
           }, function(error) {
