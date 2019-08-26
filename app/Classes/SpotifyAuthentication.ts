@@ -2,7 +2,7 @@
 * 	Configuration and methods for setting up Spotify authentication/ Spotify API tokens
 */
 // The keys file has configuration details for using the spotify api
-import { keys } from '../keys';
+//import { keys } from '../keys';
 import * as request from 'request';
 
 // When you send any POST request you need auth options 
