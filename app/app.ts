@@ -43,10 +43,11 @@ import { dropdown } from './public/dropdown/dropdown.json'
 
 // Create a new express application instance
 const app = express();
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.resolve(__dirname, '../public')));
+console.log('Serving static files from', path.resolve(__dirname, '../public'));
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '/views'));
+app.set('views', path.join(__dirname, 'views'));
 
 app.get('/', (req, res) => {
   res.render('index.ejs', {dropdown: dropdown})
