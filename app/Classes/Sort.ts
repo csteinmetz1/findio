@@ -1,6 +1,7 @@
-import { TrackObject } from '../types';
+import { TrackObject, SearchParameters } from '../types';
+import { subtractVectors } from '../Classes/Helper';
 
-function sortResults(searchResults:TrackObject[], sortType:string) {
+function sortResults(searchResults:TrackObject[], sortType:string, searchParams?:SearchParameters) {
   // sort them tracks
   switch(sortType) {
     case 'irrelevance':
@@ -133,6 +134,38 @@ function sortResults(searchResults:TrackObject[], sortType:string) {
       searchResults.sort(function(trackA:TrackObject, trackB:TrackObject) {
         return ((trackA.audio_features && trackB.audio_features) ? trackB.audio_features[6] - trackA.audio_features[6] : 0)
       });
+      break;
+    case 'euclidean_near':
+      searchResults.sort(function(trackA:TrackObject, trackB:TrackObject) {
+        if (trackA.audio_features && trackB.audio_features && searchParams) {
+          let differenceA = subtractVectors(trackA.audio_features, searchParams.audioFeatures)
+          let distanceA = differenceA.reduce( (acc:number, cur:number) =>  acc + Math.pow(cur,2), 0 );
+
+          let differenceB = subtractVectors(trackB.audio_features, searchParams.audioFeatures)
+          let distanceB = differenceB.reduce( (acc:number, cur:number) =>  acc + Math.pow(cur,2), 0 );
+
+          if(distanceA < distanceB) { return -1; }
+          if(distanceA > distanceB) { return  1; }
+          return 0;
+        }
+        throw new Error('You must pass SearchParameters object to use this sort method.');
+      });
+      break;
+    case 'euclidean_far':
+      searchResults.sort(function(trackA:TrackObject, trackB:TrackObject) {
+        if (trackA.audio_features && trackB.audio_features && searchParams) {
+          let differenceA = subtractVectors(trackA.audio_features, searchParams.audioFeatures)
+          let distanceA = differenceA.reduce( (acc:number, cur:number) =>  acc + Math.pow(cur,2), 0 );
+
+          let differenceB = subtractVectors(trackB.audio_features, searchParams.audioFeatures)
+          let distanceB = differenceB.reduce( (acc:number, cur:number) =>  acc + Math.pow(cur,2), 0 );
+
+          if(distanceA < distanceB) { return -1; }
+          if(distanceA > distanceB) { return  1; }
+          return 0;
+        }
+        throw new Error('You must pass SearchParameters object to use this sort method.');
+      }).reverse();
       break;
   }
   return searchResults;

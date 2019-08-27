@@ -72,7 +72,7 @@ app.post('/search', (req, res) => {
       // extract the array of track results for each search
       let mergedTrackObjects = searchResults.map((searchResults:SearchResults) => searchResults.trackObjects);
       // flatten these boys out and then sort them
-      let flatMergedTrackObjects = sortResults(mergedTrackObjects.flat(), searchParams.sort);
+      let flatMergedTrackObjects = sortResults(mergedTrackObjects.flat(), searchParams.sort, searchParams);
 
       // extract the array of track results for each search
       let mergedSearchDetails = searchResults.map((searchResults:SearchResults) => searchResults.searchDetails);
