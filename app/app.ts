@@ -54,7 +54,11 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(process.env.PWD, 'views'));
 
 app.get('/', (req, res) => {
-  res.render('index.ejs', {dropdown: dropdown})
+  res.render('index.ejs')
+})
+
+app.get('/start', (req, res) => {
+  res.render('start.ejs', {dropdown: dropdown})
 })
 
 app.post('/search', (req, res) => {

@@ -285,7 +285,7 @@ input[type=text] {
     border-left-color: #343a40;
 }
 
-.slider.slider-horizontal{
+.slider.slider-horizontal {
 	width:100%; /* sample value - set it as you like*/
   }
 
@@ -301,7 +301,11 @@ input[type=text] {
 	transition: visibility 0s linear 0s, opacity 300ms;
 }
 
-td
-{
+td {
     padding-right: 20px;
+}
+
+.huge {
+	text-align: center;
+	font-size: 125px;
 }

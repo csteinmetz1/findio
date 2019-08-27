@@ -13,202 +13,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/css/bootstrap-slider.min.css">
     <link rel="stylesheet" href="https://use.typekit.net/wis1oow.css">
     <link type="text/css" rel="stylesheet" href="/styles.css">
-  
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
-
-    <script src="/js/compress.js"></script>
-    <script src="/js/predict.js"></script>
-    <script src="/js/load.js"></script>
-    <script src="/js/nn.js"></script>
 
   </head>
   <body>
 
-  <div class="container-fluid" id="container-pad">
-    <div class="md-form mt-0"> 
-      <form method="POST" action="/search">
-        <div data-toggle="tooltip" data-placement="bottom" title="Enter a query for your search (optional)">
-          <input class="form-control search-input-form" name="query" type="text" placeholder="Start typing..." aria-label="Search">
-        </div>
-
-        <div class="container-fluid" style="margin-top: 50px; padding:50px;"> 
-          <div class="row">
-            <div class="col-md-3 mb-4 mb-md-0">
-              <h4>Image</h4>
-              <canvas id="cover" width="64" height="64" style="border:1px solid #fff;" data-placement="right" data-toggle="tooltip" title="Upload an image to search by predicted audio features from our Neural Network"> </canvas>
-              <input id="file" type="file" accept="image/*">
-              <table>
-                <tr>
-                  <td>Danceability</td>
-                  <td><input class="audio-feature-input" id="danceability" name="danceability" type="number" min=0.00 max=1.00 step=0.01></td>
-                </tr>
-                <tr>
-                  <td>Energy</td>
-                  <td><input class="audio-feature-input" id="energy" name="energy" type="number" min=0.00 max=1.00 step=0.01></td>
-                </tr>
-                <tr>
-                  <td>Mode</td>
-                  <td><input class="audio-feature-input" id="mode" name="mode" type="number" min=0.00 max=1.00 step=0.01></td>
-                </tr>
-                <tr>
-                  <td>Acousticness</td>
-                  <td><input class="audio-feature-input" id="acousticness" name="acousticness" type="number" min=0.00 max=1.00 step=0.01></td>
-                </tr>
-                <tr>
-                  <td>Instrumentalness</td>
-                  <td><input class="audio-feature-input" id="instrumentalness" name="instrumentalness" type="number" min=0.00 max=1.00 step=0.01></td>
-                </tr>
-                <tr>
-                  <td>Liveness</td>
-                  <td><input class="audio-feature-input" id="liveness" name="liveness" type="number" min=0.00 max=1.00 step=0.01></td>
-                </tr>
-                <tr>
-                  <td>Valence</td>
-                  <td><input class="audio-feature-input" id="valence" name="valence" type="number" min=0.00 max=1.00 step=0.01></td>
-                </tr>
-              </table>
-              <p style="margin-top: 10px; text-align: center">
-                Tolerance
-                <br>
-                <div data-toggle="tooltip" data-placement="left" title="Control how similar track audio features must be">
-                  <input id="tolerance" name="tolerance" data-slider-id='tolerance' type="text" data-slider-min="0.0" data-slider-max="2.0" data-slider-step="0.1" data-slider-value="0.5"/>
-                </div>
-              </p>
-            </div>
-
-            <div class="col-md-1"></div>
-            
-            <div class="col-md-3 mb-4 mb-md-0">
-              <h4>Year</h4>
-              <div>
-                <p>Start</p>
-                <select class="custom-select" name="startYear" data-toggle="tooltip" data-placement="left" title="Select a starting year to filter search results by time of release">
-                  <% for(var i=0; i < dropdown.years.length; i++) { %>
-                    <% if (i ==  dropdown.years.length-1) { %>
-                      <option value="<%- Object.keys(dropdown.years[i]) %>" selected="selected"> <%- dropdown.years[i][Object.keys(dropdown.years[i])] %></option>
-                    <% } else { %>
-                      <option value="<%- Object.keys(dropdown.years[i]) %>"> <%- dropdown.years[i][Object.keys(dropdown.years[i])] %></option>
-                    <% } %>
-                  <% } %>
-                </select>
-  
-                <p style="margin-top: 10px">End</p>
-                <select class="custom-select"  name="stopYear" data-toggle="tooltip" data-placement="left" title="Select a final year to filter search results by time of release">
-                  <% for(var i=0; i < dropdown.years.length; i++) { %>
-                    <% if (i == 0 ) { %>
-                      <option value="<%- Object.keys(dropdown.years[i]) %>" selected="selected"> <%- dropdown.years[i][Object.keys(dropdown.years[i])] %></option>
-                    <% } else { %>
-                      <option value="<%- Object.keys(dropdown.years[i]) %>"> <%- dropdown.years[i][Object.keys(dropdown.years[i])] %></option>
-                    <% } %>
-                  <% } %>
-                </select>
-              </div>
-              
-              <div>
-                <h4 style="margin-top: 30px">Genre</h4>
-                <select class="custom-select" name="genre" data-toggle="tooltip" data-placement="left" title="Only search tracks with a specific genre">
-                  <% for(var i=0; i < dropdown.genres.length; i++) { %>
-                    <option value="<%- dropdown.genres[i] %>"> <%- dropdown.genres[i] %></option>
-                  <% } %>
-                </select>
-              </div>
-
-              <div>
-                <h4 style="margin-top: 30px">Explicit</h4>
-                <select class="custom-select" name="explicit" data-toggle="tooltip" data-placement="left" title="Filter tracks based on its explicit content">
-                    <option value="allow">Allow</option>
-                    <option value="exclude">Exclude</option>
-                    <option value="explicit">Explicit only</option>
-                </select>
-              </div>
-
-            </div>
-
-            <div class="col-md-1"></div>
-
-            <div class="col-md-3 mb-4 mb-md-0">
-              <div>
-                <h4>Popularity</h4>
-                <div data-toggle="tooltip" data-placement="right" title="Filter search results by track popularity">
-                  <input id="popularity" name="popularity" type="text" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="[0,100]"/>
-                </div>
-              </div>
-              <div style="margin-top: 30px;">
-                <h4>Search Depth</h4>
-                <div data-toggle="tooltip"  data-placement="right" title="Control how many tracks deep to search">
-                  <input id="depth" name="depth" data-slider-id='depth' type="text" data-slider-min="1" data-slider-max="1000" data-slider-step="10" data-slider-value="100"/>
-                </div>
-              </div>
-              <div style="margin-top: 30px;">
-                <h4>Duration (ms)</h4>
-                <div data-toggle="tooltip"  data-placement="right" title="Filter search results by track length">
-                  <input id="duration" name="duration" data-slider-id='duration' type="text" data-slider-min="30000" data-slider-max="500000" data-slider-step="100" data-slider-value="[30000,450000]"/>
-                </div>
-              </div>
-
-              <div style="margin-top: 30px">
-                <h4 >Sort by</h4>
-                <select class="custom-select" name="sort"  data-toggle="tooltip"  data-placement="right" title="Determine how to sort the search results">
-                  <option value="relevance">Relevance</option>
-                  <option value="irrelevance">Irrelevance</option>
-                  <option value="random">Random</option>
-                  <option value="newest">Release: Newest first</option>
-                  <option value="oldest">Release: Oldest first</option>
-                  <option value="artist_a-z">Artist name: A-Z</option>
-                  <option value="artist_z-a">Artist name: Z-A</option>
-                  <option value="track_a-z">Track title: A-Z</option>
-                  <option value="track_z-a">Track title: Z-A</option>
-                  <option value="poplowtohigh">Popularity: Low to High</option>
-                  <option value="pophightolow">Popularity: High to Low</option>
-                  <option value="durationlowtohigh">Duration: Low to High</option>
-                  <option value="durationhightolow">Duration: High to Low</option>
-                  <optgroup label="Audio Features">
-                    <option value="danceabilitylowtohigh">Danceability: Low to High</option>
-                    <option value="danceabilityhightolow">Danceability: High to Low</option>
-                    <option value="energylowtohigh">Energy: Low to High</option>
-                    <option value="energyhightolow">Energy: High to Low</option>
-                    <option value="modelowtohigh">Mode: Low to High</option>
-                    <option value="modehightolow">Mode: High to Low</option>
-                    <option value="acousticnesslowtohigh">Acousticness: Low to High</option>
-                    <option value="acousticnesshightolow">Acousticness: High to Low</option>
-                    <option value="instrumentalnesslowtohigh">Instrumentalness: Low to High</option>
-                    <option value="instrumentalnesshightolow">Instrumentalness: High to Low</option>
-                    <option value="livenesslowtohigh">Liveness: Low to High</option>
-                    <option value="livenesshightolow">Liveness: High to Low</option>
-                    <option value="valencelowtohigh">Valence: Low to High</option>
-                    <option value="valencehightolow">Valence: High to Low</option>
-                    <option value="euclidean_near">Euclidean distance: Nearest</option>
-                    <option value="euclidean_far">Euclidean distance: Furthest</option>             
-                  </optgroup>
-                </select>
-              </div>
-
-              <div class="text-center" style="margin: 25px">
-                <button type="submit" style="text-align: center" class="btn btn-outline-light btn-lg btn-block">Search</button>
-              </div>
-
-            </div>
-
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 p-0">
+          <div class="min-vh-100 text-center m-0 d-flex flex-column justify-content-center">
+            <h1 class="huge">adv</h1>
+            <p class="lead">The Spotify search you don't need and never wanted.</p>
+            <p class="lead"><a class="btn btn-light btn-lg" style="width: 200px;" href="/start" role="button">Start</a></p>
           </div>
-
         </div>
-
-
-      </form>
+      </div>
     </div>
-  </div>
 
 	<!-- Including Bootstrap JS (with its jQuery dependency) so that dynamic components work -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/bootstrap-slider.min.js" crossorigin="anonymous"></script>
-
-  <script src="/js/sliders.js"></script>
-  <script>
-    // update this if you want to use a newer model
-    runNN('models/08202019/model.json')
-  </script>
-
 </body>
 </html>
