@@ -29,23 +29,149 @@
         <a class="my-link" href="#" onclick="history.go(-1)">  ← Go Back </a>
       </div>
       <div class="col-md-8 text-center">
-        <h2 class="navbar-text"><%- query.join(' ') %></h2>
+        <h2 class="navbar-text"><%- params.query.join(' ') %></h2>
       </div>
       <div class="col-md-2"></div>
     </nav>
 
   <div class="container results-container">
-    <div>
-      <p>We searched a total of <%- details.totalTracks %> tracks </p>
-      <p><%- details.filteredByAudioFeatures %> track(s) were filtered out by audio features</p>
-      <p><%- details.filteredByPopularity %> track(s) were filtered out by popularity</p>
-      <p><%- details.filteredByDuration %> track(s) were filtered out by duration</p>
-      <p><%- details.filteredByExplicit %> track(s) were filtered out by their explicit content</p> 
-      <p>This left a total of <%- details.totalFilteredTracks %> track(s)</p>
+    <div class="row">
+      <div class="col-md-4">
+        <table>
+          <th>
+            <tr> <h4>Search Parameters</h4> </tr>
+          </th>
+          <tr>
+            <td>You searched </td>
+            <td>"<%- params.query.join(' ') %>"</td>
+          </tr>
+          <tr>
+            <td>Released </td>
+            <td><%- params.yearRange[0] %> to <%- params.yearRange[1] %></td>
+          </tr>
+          <tr>
+            <td>Genre label </td>
+            <td><%- params.genre %></td>
+          </tr>
+          <tr>
+            <td>Explicit type</td>
+            <td> <%- params.explicit %> </td>
+          </tr>
+          <tr>
+            <td>Duration </td>
+            <td><%- params.durationRange[0] %> ms to <%- params.durationRange[1] %> ms </td>
+          </tr>
+          <tr>
+            <td>Popularity </td>
+            <td> <%- params.popularityRange[0] %> to <%- params.popularityRange[1] %></td>
+          </tr>
+          <tr>
+            <td>Search depth </td>
+            <td> <%- params.depth %> tracks</td>
+          </tr>
+          <tr>
+            <td>Sort by </td>
+            <td> <%- params.sort %></td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-3">
+        <table>
+          <th>
+            <tr> <h4>Audio Features</h4> </tr>
+          </th>
+          <tr>
+            <td>Danceability</td>
+            <% if (isNaN(params.audioFeatures[0])) { %>
+              <td> n/a </td>
+            <% } else { %>
+              <td> <%- params.audioFeatures[0] %> </td>
+            <% } %>
+          </tr>
+          <tr>
+            <td>Energy</td>
+            <% if (isNaN(params.audioFeatures[1])) { %>
+              <td> n/a </td>
+            <% } else { %>
+              <td> <%- params.audioFeatures[1] %> </td>
+            <% } %>
+          </tr>
+          <tr>
+            <td>Mode</td>
+            <% if (isNaN(params.audioFeatures[2])) { %>
+              <td> n/a </td>
+            <% } else { %>
+              <td> <%- params.audioFeatures[2] %> </td>
+            <% } %>
+          </tr>
+          <tr>
+            <td>Acousticness</td>
+            <% if (isNaN(params.audioFeatures[3])) { %>
+              <td> n/a </td>
+            <% } else { %>
+              <td> <%- params.audioFeatures[3] %> </td>
+            <% } %>
+          </tr>
+          <tr>
+            <td>Instrumentalness</td>
+            <% if (isNaN(params.audioFeatures[4])) { %>
+              <td> n/a </td>
+            <% } else { %>
+              <td> <%- params.audioFeatures[4] %> </td>
+            <% } %>
+          </tr>
+          <tr>
+            <td>Liveness</td>
+            <% if (isNaN(params.audioFeatures[5])) { %>
+              <td> n/a </td>
+            <% } else { %>
+              <td> <%- params.audioFeatures[5] %> </td>
+            <% } %>
+          </tr>
+          <tr>
+            <td>Valence</td>
+            <% if (isNaN(params.audioFeatures[6])) { %>
+              <td> n/a </td>
+            <% } else { %>
+              <td> <%- params.audioFeatures[6] %> </td>
+            <% } %>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col-md-5">
+        <table>
+          <th>
+            <tr> <h4>Search Filtering</h4> </tr>
+          </th>
+          <tr>
+            <td>Found a total of <%- details.totalTracks %> tracks for "<%- params.query.join(' ') %>"</td>
+          </tr>
+          <tr>
+            <td><%- details.filteredByAudioFeatures %> track(s) were filtered out by audio features</td>
+          </tr>
+          <tr>
+            <td><%- details.filteredByPopularity %> track(s) were filtered out by popularity</td>
+          </tr>
+          <tr>
+            <td><%- details.filteredByDuration %> track(s) were filtered out by duration</td>
+          </tr>
+          <tr>
+            <td><%- details.filteredByExplicit %> track(s) were filtered out by their explicit content</td>
+          </tr>
+          <tr>
+            <td>This left a total of <%- details.totalFilteredTracks %> track(s)</td>
+          </tr>
+        </table>
+      </div>
+
     </div>
+
     <% if (results < 1) { %>
       <div class="text-center"> 
-        No results.
+        <br>
+        <h2>No tracks found based on your search!</h2>
+        <h4>Maybe you should write one...</h4>
       </div>
     <% } %>
     <% for(var i=0; i < results.length; i+= 4) { %>

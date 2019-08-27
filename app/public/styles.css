@@ -290,13 +290,18 @@ input[type=text] {
   }
 
 .m-fadeOut {
-visibility: hidden;
-opacity: 0;
-transition: visibility 0s linear 300ms, opacity 300ms;
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s linear 300ms, opacity 300ms;
 }
 
 .m-fadeIn {
-visibility: visible;
-opacity: 1;
-transition: visibility 0s linear 0s, opacity 300ms;
+	visibility: visible;
+	opacity: 1;
+	transition: visibility 0s linear 0s, opacity 300ms;
+}
+
+td
+{
+    padding-right: 20px;
 }

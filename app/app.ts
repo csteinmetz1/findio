@@ -79,7 +79,7 @@ app.post('/search', (req, res) => {
       let summarySearchDetails = sumSearchDetails(mergedSearchDetails);
 
       // send data to the template
-      res.render('results.ejs', { details:summarySearchDetails, results:flatMergedTrackObjects, query:searchParams.query});
+      res.render('results.ejs', { details:summarySearchDetails, results:flatMergedTrackObjects, params:searchParams});
 
     }, function(error) {
       console.log("one or more search()s failed", error);
