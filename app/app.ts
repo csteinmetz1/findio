@@ -47,7 +47,7 @@ else {
 
 // Create a new express application instance
 const app = express();
-app.use(express.static(path.join(process.env.PWD, '../public')));
+app.use(express.static(path.join(process.env.PWD, 'public')));
 console.log('Serving static files from', path.join(process.env.PWD, 'public'));
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
