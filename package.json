@@ -13,9 +13,10 @@
     "dev": "ts-node-dev --respawn --transpileOnly ./app/app.ts",
     "public": "rm -rf ./build/public && cp -R ./app/public/ ./build/public/",
     "views": "cp -R ./app/views/ ./build/views/",
-    "models" : "./models.sh",
-    "postinstall": "tsc && npm run public && npm run views",
-    "start": "node build/app.js"
+    "models" : "./dlmodels.sh",
+    "postinstall": "tsc && npm run public && npm run views && npm run models",
+    "start": "node build/app.js",
+    "prod": "npm run postinstall && npm run start"
   },
   "repository": {
     "type": "git",
