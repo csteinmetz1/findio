@@ -11,8 +11,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc",
     "dev": "ts-node-dev --respawn --transpileOnly ./app/app.ts",
-    "public": "cp -r ./app/public ./build/public",
-    "views": "cp -r ./app/views ./build/views",
+    "public": "cp -R ./app/public/ ./build/public/",
+    "views": "cp -R ./app/views/ ./build/views/",
     "models" : "./models.sh",
     "postinstall": "tsc && npm run public && npm run views",
     "start": "node build/app.js"
