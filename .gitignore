@@ -14,3 +14,6 @@ keys.ts
 node_modules
 build
 npm-debug.log
+
+# Docs
+screencaps/
