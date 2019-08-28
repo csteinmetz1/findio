@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>adv</title>
+    <title>findio | <%- params.query.join(' ') %></title>
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -167,6 +167,8 @@
 
     </div>
 
+    <div id="page">
+
     <% if (results < 1) { %>
       <div class="text-center"> 
         <br>
@@ -229,7 +231,7 @@
     </div>
     <% } %>
   </div>
-
+</div> 
   <footer id="footer" class="m-fadeOut fixed-bottom now-playing">
     <div class="container" style="margin: 15px;">
       <div class="row">
@@ -248,7 +250,7 @@
       </div>
     </div>
   </footer>
-  <p></p>
+
 
   <!-- Including Bootstrap JS (with its jQuery dependency) so that dynamic components work -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
