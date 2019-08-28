@@ -3,7 +3,6 @@ body {
 	background: #121212; 
 	font-family: proxima-nova,sans-serif;
 	font-style: normal;
-	padding-bottom: 120px;
 }
 
 #container-pad {
@@ -305,7 +304,8 @@ td {
     padding-right: 20px;
 }
 
-.huge {
+.brand {
+	font-family: 'Lexend Deca', sans-serif;
 	text-align: center;
 	font-size: 125px;
 }

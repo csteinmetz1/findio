@@ -57,8 +57,8 @@ app.get('/', (req, res) => {
   res.render('index.ejs')
 })
 
-app.get('/start', (req, res) => {
-  res.render('start.ejs', {dropdown: dropdown})
+app.get('/search', (req, res) => {
+  res.render('search.ejs', {dropdown: dropdown})
 })
 
 app.post('/search', (req, res) => {
