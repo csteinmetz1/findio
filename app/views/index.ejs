@@ -14,13 +14,14 @@
     <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.typekit.net/wis1oow.css">
     <link type="text/css" rel="stylesheet" href="/styles.css">
+    <link type="text/css" rel="stylesheet" href="/sticky-footer.css">
 
   </head>
   <body>
 
-    <div class="container-fluid">
+    <main role="main" class="container">
       <div class="row">
-        <div id="page" class="col-12 p-0">
+        <div class="col-12 p-0 fade2">
           <div class="min-vh-100 text-center m-0 d-flex flex-column justify-content-center">
             <h1 class="brand">findio</h1>
             <p class="lead">The Spotify search you don't need and never wanted.</p>
@@ -28,7 +29,13 @@
           </div>
         </div>
       </div>
-    </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container fade4">
+        <span class="text-muted">Awarded 1st place in the <a href="https://www.reddit.com/r/ProgrammerHumor/comments/ds7ma6/hackathon_results_winners/">r/ProgrammerHumor Hackathon 2019</a>.</span>
+      </div>
+    </footer>
 
 	<!-- Including Bootstrap JS (with its jQuery dependency) so that dynamic components work -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -310,7 +310,7 @@ td {
 	font-size: 125px;
 }
 
-#page {
+.fade2 {
 	-webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
 	   -moz-animation: fadein 2s; /* Firefox < 16 */
 		-ms-animation: fadein 2s; /* Internet Explorer */
@@ -318,6 +318,17 @@ td {
 			animation: fadein 2s;
 			animation-fill-mode: forwards;
   }
+
+.fade4 {
+	-webkit-animation: fadein 4s; /* Safari, Chrome and Opera > 12.1 */
+	   -moz-animation: fadein 4s; /* Firefox < 16 */
+		-ms-animation: fadein 4s; /* Internet Explorer */
+		 -o-animation: fadein 4s; /* Opera < 12.1 */
+			animation: fadein 4s;
+			animation-fill-mode: forwards;
+}
+
+
   
   @keyframes fadein {
 	from { opacity: 0; }
