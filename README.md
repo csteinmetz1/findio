@@ -10,6 +10,7 @@ See the live site: [http://www.findio.ml](http://www.findio.ml)
     - [Search results](#search-interface)
 - [Setup](#setup)
     - [Training](#training)
+- [Award](#award)
 - [License](#license)
 
 
@@ -189,6 +190,11 @@ Run the training script
 ```
 python train.py
 ```
+
+## Award
+
+**findio** won 1st place in the [r/ProgrammerHumor Hackathon 2019](https://www.reddit.com/r/ProgrammerHumor/comments/ds7ma6/hackathon_results_winners/),
+a Hackathon for building the most overengineered project possible. 
 
 ## License
 The MIT License
